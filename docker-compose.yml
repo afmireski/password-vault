@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:15.2
+    container_name: postgres_db
+    restart: always
+    tty: true
+    environment:
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=password_vault
+    ports:
+      - 5432:5432
+
