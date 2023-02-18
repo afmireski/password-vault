@@ -212,7 +212,7 @@
           "active": false,
           "left": 200,
           "top": 99.1667,
-          "zIndex": 288,
+          "zIndex": 2,
           "widthName": 60,
           "widthComment": 60,
           "color": "#673AB7"
@@ -364,10 +364,10 @@
           }
         ],
         "ui": {
-          "active": true,
+          "active": false,
           "left": 728.3329,
           "top": 108.3332,
-          "zIndex": 298,
+          "zIndex": 3,
           "widthName": 67.67604064941406,
           "widthComment": 60,
           "color": "#673AB7"
@@ -487,7 +487,7 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 71.09506225585938,
+              "widthName": 66.01203918457031,
               "widthComment": 60,
               "widthDataType": 74.98208618164062,
               "widthDefault": 60
@@ -510,7 +510,7 @@
               "pk": false,
               "fk": false,
               "pfk": false,
-              "widthName": 60,
+              "widthName": 71.09506225585938,
               "widthComment": 60,
               "widthDataType": 74.98208618164062,
               "widthDefault": 60
@@ -588,10 +588,10 @@
           }
         ],
         "ui": {
-          "active": false,
-          "left": 336.6671,
-          "top": 457.4996,
-          "zIndex": 280,
+          "active": true,
+          "left": 338.3337,
+          "top": 453.3327,
+          "zIndex": 4,
           "widthName": 67.28604125976562,
           "widthComment": 60,
           "color": "#673AB7"
@@ -651,8 +651,8 @@
           "columnIds": [
             "0453f0c3-e5c6-45ad-8a17-ac0d86172c7c"
           ],
-          "x": 449.1873865600586,
-          "y": 457.4996,
+          "x": 450.8539865600586,
+          "y": 453.3327,
           "direction": "top"
         },
         "constraintName": "fk_users_to_passwords",
@@ -677,8 +677,8 @@
           "columnIds": [
             "c738f64a-7529-409f-b65e-3ad1b2c96718"
           ],
-          "x": 674.2279596801758,
-          "y": 457.4996,
+          "x": 675.8945596801758,
+          "y": 453.3327,
           "direction": "top"
         },
         "constraintName": "fk_categories_to_passwords",
