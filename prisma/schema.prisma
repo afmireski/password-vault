@@ -15,7 +15,7 @@ generator nestjsgraphql {
   output = "./@generated"
   fields_Validator_input = "true"
   fields_Validator_from = "class-validator"
-  fields_Transformer_input = "true"
+  fields_Transformer_model = "true"
   fields_Transformer_from = "class-transformer"
 }
 
