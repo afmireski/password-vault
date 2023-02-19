@@ -13,4 +13,39 @@ datasource db {
 generator nestjsgraphql {
   provider = "prisma-nestjs-graphql"
   output = "./@generated"
+  fields_Validator_input = "true"
+  fields_Validator_from = "class-validator"
+}
+
+model User {
+  /// @Validator.IsUUID('4')
+  /// @Validator.IsNotEmpty()
+  id String @default(uuid()) @id @db.Uuid
+
+  /// @Validator.IsEmail()
+  /// @Validator.MaxLength(100)
+  /// @Validator.IsNotEmpty()
+  email String @db.VarChar(100)
+
+  /// @Validator.IsUUID('4')
+  /// @Validator.Length(3, 100)
+  /// @Validator.IsNotEmpty()
+  name String @db.VarChar(100)
+
+  /// @Validator.IsString()
+  /// @Validator.Length(6, 100)
+  /// @Validator.IsNotEmpty()
+  /// @HideField({ input: false, output: true })
+  password String @db.VarChar(100)
+
+  /// @HideField({ input: true, output: false })
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  /// @HideField({ input: true, output: false })
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  /// @HideField({ input: true, output: false })
+  delete_at DateTime? @db.Timestamptz(6)
+
+  @@map("users")
 }
