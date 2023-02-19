@@ -45,7 +45,7 @@ model User {
   updated_at DateTime @default(now()) @db.Timestamptz(6)
 
   /// @HideField({ input: true, output: false })
-  delete_at DateTime? @db.Timestamptz(6)
+  deleted_at DateTime? @db.Timestamptz(6)
 
   @@map("users")
 }
