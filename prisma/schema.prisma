@@ -22,7 +22,7 @@ generator nestjsgraphql {
 model User {
   /// @Validator.IsUUID('4')
   /// @Validator.IsNotEmpty()
-  /// @HideField({ match: {UserUncheckedCreateInput, UserCreateInput, UserUncheckedUpdateInput, UserUpdateInput}})
+  /// @HideField({ match: '{UserUncheckedCreateInput, UserCreateInput, UserUncheckedUpdateInput, UserUpdateInput}'})
   id String @id @default(uuid()) @db.Uuid
 
   /// @Validator.IsEmail()
@@ -43,7 +43,7 @@ model User {
 
   /// @Validator.ValidatedNested()
   /// @Transformer.Type(() => Category)
-  /// @HideField({ match: {UserUncheckedCreateInput, UserCreateInput, UserUncheckedUpdateInput, UserUpdateInput}})
+  /// @HideField({ match: '{UserUncheckedCreateInput, UserCreateInput, UserUncheckedUpdateInput, UserUpdateInput}'})
   categories Category[]
 
   /// @HideField({ input: true, output: false })
@@ -61,7 +61,7 @@ model User {
 model Category {
   /// @Validator.IsUUID('4')
   /// @Validator.IsNotEmpty()
-  /// @HideField({ match: {CategoryUncheckedCreateInput, CategoryCreateInput, CategoryUncheckedUpdateInput, CategoryUpdateInput}})
+  /// @HideField({ match: '{CategoryUncheckedCreateInput, CategoryCreateInput, CategoryUncheckedUpdateInput, CategoryUpdateInput}'})
   id String @id @default(uuid()) @db.Uuid
 
   /// @Validator.IsUUID('4')
@@ -75,7 +75,7 @@ model Category {
 
   /// @Validator.ValidatedNested()
   /// @Transformer.Type(() => User)
-  /// @HideField({ match: {CategoryUncheckedCreateInput, CategoryCreateInput, CategoryUncheckedUpdateInput, CategoryUpdateInput}})
+  /// @HideField({ match: '{CategoryUncheckedCreateInput, CategoryCreateInput, CategoryUncheckedUpdateInput, CategoryUpdateInput}'})
   user User @relation(fields: [user_id], references: [id])
 
   /// @HideField({ input: true, output: false })
