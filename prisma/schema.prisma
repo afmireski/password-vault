@@ -46,6 +46,11 @@ model User {
   /// @HideField({ match: '{UserUncheckedCreateInput, UserCreateInput, UserUncheckedUpdateInput, UserUpdateInput}'})
   categories Category[]
 
+  /// @Validator.ValidatedNested()
+  /// @Transformer.Type(() => Password)
+  /// @HideField({ match: '{UserUncheckedCreateInput, UserCreateInput, UserUncheckedUpdateInput, UserUpdateInput}'})
+  passwords Password[]
+
   /// @HideField({ input: true, output: false })
   created_at DateTime @default(now()) @db.Timestamptz(6)
 
@@ -78,6 +83,11 @@ model Category {
   /// @HideField({ match: '{CategoryUncheckedCreateInput, CategoryCreateInput, CategoryUncheckedUpdateInput, CategoryUpdateInput}'})
   user User @relation(fields: [user_id], references: [id])
 
+  /// @Validator.ValidatedNested()
+  /// @Transformer.Type(() => Password)
+  /// @HideField({ match: '{CategoryUncheckedCreateInput, CategoryCreateInput, CategoryUncheckedUpdateInput, CategoryUpdateInput}'})
+  passwords Password[]
+
   /// @HideField({ input: true, output: false })
   created_at DateTime @default(now()) @db.Timestamptz(6)
 
@@ -88,4 +98,57 @@ model Category {
   deleted_at DateTime? @db.Timestamptz(6)
 
   @@map("categories")
+}
+
+model Password {
+  /// @Validator.IsUUID('4')
+  /// @Validator.IsNotEmpty()
+  /// @HideField({ match: '{PasswordUncheckedCreateInput, PasswordCreateInput, PasswordUncheckedUpdateInput, PasswordUpdateInput}'})
+  id String @id @default(uuid()) @db.Uuid
+  
+  /// @Validator.IsUUID('4')
+  /// @Validator.IsNotEmpty()
+  /// @HideField({ match: '{PasswordUncheckedUpdateInput, PasswordUpdateInput}'})
+  user_id String @db.Uuid
+
+  /// @Validator.IsUUID('4')
+  /// @Validator.IsNotEmpty()
+  /// @HideField({ match: '{PasswordUncheckedUpdateInput, PasswordUpdateInput}'})
+  category_id String? @db.Uuid()
+
+  /// @Validator.IsString()
+  /// @Validator.IsNotEmpty()
+  /// @Validator.Length(0, 50)
+  title String @db.VarChar(50)
+
+  /// @Validator.IsString()
+  /// @Validator.IsOptional()
+  /// @Validator.Length(0, 200)
+  description String? @db.VarChar(200)
+
+  /// @Validator.IsString()
+  /// @Validator.IsNotEmpty()
+  /// @Validator.MinLength(6)
+  value String
+
+  /// @Transformer.Type(() => User)
+  /// @Validator.ValidatedNested()
+  /// @HideField({ match: '{PasswordUncheckedCreateInput, PasswordCreateInput, PasswordUncheckedUpdateInput, PasswordUpdateInput}'})
+  user User @relation(fields: [user_id], references: [id])
+
+  /// @Transformer.Type(() => Category)
+  /// @Validator.ValidatedNested()
+  /// @HideField({ match: '{PasswordUncheckedCreateInput, PasswordCreateInput, PasswordUncheckedUpdateInput, PasswordUpdateInput}'})
+  category Category? @relation(fields: [category_id], references: [id])
+
+  /// @HideField({ input: true, output: false })
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  /// @HideField({ input: true, output: false })
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  /// @HideField({ input: true, output: false })
+  deleted_at DateTime? @db.Timestamptz(6)
+
+  @@map("passwords")
 }
