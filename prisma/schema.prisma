@@ -149,4 +149,6 @@ model Password {
 
   /// @HideField({ input: true, output: false })
   deleted_at DateTime? @db.Timestamptz(6)
+
+  @@map("passwords")
 }
