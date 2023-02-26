@@ -55,7 +55,7 @@ type User {
 }
 
 type Query {
-  FindUser: String!
+  FindUser(user_id: String!): User!
 }
 
 type Mutation {

@@ -24,6 +24,7 @@ export class UsersResolver {
   }
 
   @Query(() => User)
+  @UsePipes(ValidationPipe)
   async FindUser(
     @Args() input: FindUserInput,
     @Info() info: GraphQLResolveInfo,
