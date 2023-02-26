@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { PrismaSelect } from '@paljs/plugins';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserInput } from './dtos/create-user.input';
 import * as bcrypt from 'bcrypt';
 
@@ -20,6 +20,7 @@ export class UsersService {
           name,
           password: bcrypt.hashSync(password, salt),
         },
+        ...select,
       }),
     ).catch(() => {
       throw new InternalServerErrorException('Falha ao criar o usuário');

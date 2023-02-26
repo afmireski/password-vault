@@ -20,7 +20,6 @@ export class CreateUserInput {
   name: string;
 
   @Field(() => String, { nullable: false })
-  @Validator.IsEmail()
   @Validator.Length(6, 100, {
     message: 'A senha pode ter entre 6 e 100 caracteres',
   })
