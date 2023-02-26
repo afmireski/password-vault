@@ -13,7 +13,22 @@ import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  private xprisma;
+
+  constructor(private readonly prisma: PrismaService) {
+    this.xprisma = prisma.$extends({
+      name: 'xprisma',
+      query: {
+        user: {
+          findFirstOrThrow({ args, query }) {
+            args.where = { deleted_at: null, ...args.where };
+
+            return query(args);
+          },
+        },
+      },
+    });
+  }
 
   async createUser(
     input: CreateUserInput,
@@ -42,7 +57,7 @@ export class UsersService {
     const { user_id } = input;
 
     return Promise.resolve(
-      this.prisma.user.findFirstOrThrow({
+      this.xprisma.user.findFirstOrThrow({
         where: {
           id: {
             equals: user_id,
