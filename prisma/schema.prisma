@@ -39,7 +39,7 @@ model User {
   /// @Validator.IsString()
   /// @Validator.Length(6, 100)
   /// @Validator.IsNotEmpty()
-  /// @HideField({ input: false, output: true })
+  /// @HideField({ input: false, output: false })
   password String @db.VarChar(100)
 
   /// @Validator.ValidatedNested()

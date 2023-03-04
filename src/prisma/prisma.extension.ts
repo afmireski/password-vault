@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 
-const GlobalPrismaExtension = Prisma.defineExtension({
+export const GlobalPrismaExtension = Prisma.defineExtension({
   query: {
     $allModels: {
       $allOperations({ args, operation, query }) {
@@ -20,7 +20,7 @@ const GlobalPrismaExtension = Prisma.defineExtension({
   },
 });
 
-const HidePasswordPrismaExtension = Prisma.defineExtension({
+export const HidePasswordPrismaExtension = Prisma.defineExtension({
   result: {
     user: {
       password: {
@@ -40,5 +40,3 @@ const HidePasswordPrismaExtension = Prisma.defineExtension({
     },
   },
 });
-
-export default GlobalPrismaExtension;

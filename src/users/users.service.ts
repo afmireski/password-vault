@@ -6,6 +6,7 @@ import {
 import { PrismaSelect } from '@paljs/plugins';
 import * as bcrypt from 'bcrypt';
 import { User } from 'prisma/@generated/user/user.model';
+import { HidePasswordPrismaExtension } from 'src/prisma/prisma.extension';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
 import { CreateUserInput } from './dtos/create-user.input';
@@ -13,21 +14,8 @@ import { FindUserInput } from './dtos/find-user.input';
 
 @Injectable()
 export class UsersService {
-  private xprisma;
-
   constructor(private readonly prisma: PrismaService) {
-    this.xprisma = prisma.$extends({
-      name: 'xprisma',
-      query: {
-        user: {
-          findFirstOrThrow({ args, query }) {
-            args.where = { deleted_at: null, ...args.where };
-
-            return query(args);
-          },
-        },
-      },
-    });
+    // this.prisma.overrideExtensions([HidePasswordPrismaExtension]);
   }
 
   async createUser(
@@ -39,7 +27,7 @@ export class UsersService {
     const salt = bcrypt.genSaltSync(10);
 
     return Promise.resolve(
-      this.prisma.user.create({
+      this.prisma.extension.user.create({
         data: {
           email,
           name,
@@ -57,7 +45,7 @@ export class UsersService {
     const { user_id } = input;
 
     return Promise.resolve(
-      this.xprisma.user.findFirstOrThrow({
+      this.prisma.extension.user.findFirstOrThrow({
         where: {
           id: {
             equals: user_id,
