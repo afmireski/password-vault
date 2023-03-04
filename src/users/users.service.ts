@@ -4,12 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaSelect } from '@paljs/plugins';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateUserInput } from './dtos/create-user.input';
 import * as bcrypt from 'bcrypt';
-import { FindUserInput } from './dtos/find-user.input';
 import { User } from 'prisma/@generated/user/user.model';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
+import { CreateUserInput } from './dtos/create-user.input';
+import { FindUserInput } from './dtos/find-user.input';
 
 @Injectable()
 export class UsersService {
