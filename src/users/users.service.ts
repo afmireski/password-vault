@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { PrismaSelect } from '@paljs/plugins';
 import * as bcrypt from 'bcrypt';
-import { User } from 'prisma/@generated/user/user.model';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
+import { User } from '../../prisma/@generated/user/user.model';
+import { PrismaService } from '../prisma/prisma.service';
+import { PrismaRequest, PrismaResponse } from '../types/custom-types';
 import { CreateUserInput } from './dtos/create-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 
