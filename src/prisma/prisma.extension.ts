@@ -19,24 +19,3 @@ export const GlobalPrismaExtension = Prisma.defineExtension({
     },
   },
 });
-
-export const HidePasswordPrismaExtension = Prisma.defineExtension({
-  result: {
-    user: {
-      password: {
-        needs: {},
-        compute() {
-          return undefined;
-        },
-      },
-    },
-    password: {
-      value: {
-        needs: {},
-        compute() {
-          return undefined;
-        },
-      },
-    },
-  },
-});

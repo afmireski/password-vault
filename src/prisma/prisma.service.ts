@@ -16,10 +16,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     });
   }
 
-  overrideExtensions(extensions: any[]): void {
-    this.extension = this.$extends(Object.assign(extensions));
-  }
-
   clearDefaultExtensions(): void {
     this.extension = this.$extends({});
   }

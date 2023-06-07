@@ -6,7 +6,6 @@ import {
 import { PrismaSelect } from '@paljs/plugins';
 import * as bcrypt from 'bcrypt';
 import { User } from 'prisma/@generated/user/user.model';
-import { HidePasswordPrismaExtension } from 'src/prisma/prisma.extension';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
 import { CreateUserInput } from './dtos/create-user.input';
@@ -14,9 +13,7 @@ import { FindUserInput } from './dtos/find-user.input';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {
-    // this.prisma.overrideExtensions([HidePasswordPrismaExtension]);
-  }
+  constructor(private readonly prisma: PrismaService) {}
 
   async createUser(
     input: CreateUserInput,
