@@ -1,8 +1,6 @@
-import { PrismaSelect } from '@paljs/plugins';
-
 export type PrismaRequest<T> = {
   input: T;
-  select: PrismaSelect;
+  select: any;
 };
 
 export type PrismaResponse<T> = Promise<Partial<T>>;

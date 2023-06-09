@@ -42,7 +42,7 @@ export class UsersService {
     const { user_id } = input;
 
     return Promise.resolve(
-      this.prisma.extension.user.findFirstOrThrow({
+      this.prisma.user.findFirstOrThrow({
         where: {
           id: {
             equals: user_id,
