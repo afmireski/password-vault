@@ -54,4 +54,6 @@ export class UsersService {
       throw new NotFoundException('Usuário não encontrado');
     });
   }
+
+  async updateUser(request: PrismaRequest<>)
 }
