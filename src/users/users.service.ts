@@ -2,9 +2,7 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
 } from '@nestjs/common';
-import { PrismaSelect } from '@paljs/plugins';
 import * as bcrypt from 'bcrypt';
 import { User } from '../../prisma/@generated/user/user.model';
 import { PrismaService } from '../prisma/prisma.service';
