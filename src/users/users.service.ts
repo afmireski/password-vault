@@ -15,10 +15,7 @@ import { FindUserInput } from './dtos/find-user.input';
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createUser(
-    input: CreateUserInput,
-    select: PrismaSelect,
-  ): PrismaResponse<User> {
+  async createUser(input: CreateUserInput, select: any): PrismaResponse<User> {
     const { email, name, password } = input;
 
     const salt = bcrypt.genSaltSync(10);
