@@ -10,6 +10,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { PrismaRequest, PrismaResponse } from '../types/custom-types';
 import { CreateUserInput } from './dtos/create-user.input';
 import { FindUserInput } from './dtos/find-user.input';
+import { UpdateUserInput } from './dtos/update-user.input';
 
 @Injectable()
 export class UsersService {
@@ -52,5 +53,39 @@ export class UsersService {
     });
   }
 
-  async updateUser(request: PrismaRequest<>)
+  async updateUser(
+    request: PrismaRequest<UpdateUserInput>,
+  ): PrismaResponse<User> {
+    const { input, select } = request;
+    const { user_id, name, email } = input;
+
+    return Promise.resolve(
+      this.prisma.user
+        .findFirstOrThrow({
+          where: {
+            id: {
+              equals: user_id,
+            },
+          },
+          select: {
+            id: true,
+          },
+        })
+        .catch(() => {
+          throw new InternalServerErrorException('Usuário não encontrado!');
+        }),
+    ).then((_) =>
+      this.prisma.user.update({
+        where: {
+          id: user_id,
+        },
+        data: {
+          name,
+          email,
+          updated_at: new Date(),
+        },
+        ...select,
+      }),
+    );
+  }
 }
