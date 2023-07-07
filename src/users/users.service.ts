@@ -10,6 +10,7 @@ import { PrismaRequest, PrismaResponse } from '../types/custom-types';
 import { CreateUserInput } from './dtos/create-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 import { UpdateUserInput } from './dtos/update-user.input';
+import { DeleteUserInput } from './dtos/delete-user.input';
 
 @Injectable()
 export class UsersService {
@@ -85,6 +86,26 @@ export class UsersService {
         },
         ...select,
       }),
+    );
+  }
+
+  async deleteUserInput(request: PrismaRequest<DeleteUserInput>) {
+    const { input, select } = request;
+    const { user_id } = input;
+
+    return Promise.resolve(
+      this.prisma.user
+        .delete({
+          where: {
+            id: {
+              equals: user_id,
+            },
+          },
+          ...select
+        })
+        .catch(() => {
+          throw new InternalServerErrorException('Falha ao excluir o usuário!');
+        }),
     );
   }
 }

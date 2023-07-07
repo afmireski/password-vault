@@ -8,6 +8,7 @@ import { CreateUserInput } from './dtos/create-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 import { UsersService } from './users.service';
 import { UpdateUserInput } from './dtos/update-user.input';
+import { DeleteUserInput } from './dtos/delete-user.input';
 
 @Resolver()
 export class UsersResolver {
@@ -37,7 +38,7 @@ export class UsersResolver {
     return this.usersService.findUser(request);
   }
 
-  @Query(() => User)
+  @Mutation(() => User)
   @UsePipes(ValidationPipe)
   async UpdateUser(
     @Args('input') input: UpdateUserInput,
@@ -48,5 +49,18 @@ export class UsersResolver {
     const request: PrismaRequest<UpdateUserInput> = { input, select };
 
     return this.usersService.updateUser(request);
+  }
+
+  @Mutation(() => User)
+  @UsePipes(ValidationPipe)
+  async DeleteUser(
+    @Args('input') input: DeleteUserInput,
+    @Info() info: GraphQLResolveInfo,
+  ): PrismaResponse<User> {
+    const select = new PrismaSelect(info).value;
+
+    const request: PrismaRequest<DeleteUserInput> = { input, select };
+
+    return this.usersService.deleteUserInput(request);
   }
 }
