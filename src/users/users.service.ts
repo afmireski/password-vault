@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -49,7 +50,7 @@ export class UsersService {
         ...select,
       }),
     ).catch(() => {
-      throw new NotFoundException('Usuário não encontrado');
+      throw new BadRequestException('Usuário não encontrado');
     });
   }
 
@@ -72,7 +73,7 @@ export class UsersService {
           },
         })
         .catch(() => {
-          throw new InternalServerErrorException('Usuário não encontrado!');
+          throw new BadRequestException('Usuário não encontrado!');
         }),
     ).then((_) =>
       this.prisma.user.update({
