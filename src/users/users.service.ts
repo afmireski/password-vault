@@ -11,6 +11,7 @@ import { DeleteUserInput } from './dtos/delete-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 import { UpdateUserInput } from './dtos/update-user.input';
 import { UserDTO } from './dtos/user.dto';
+import { find } from 'rxjs';
 
 @Injectable()
 export class UsersService {
@@ -64,33 +65,54 @@ export class UsersService {
     const { input, select } = request;
     const { user_id, name, email } = input;
 
-    return Promise.resolve(
-      this.prisma.user
-        .findFirstOrThrow({
+    const transactionArray = [];
+
+    const findUserQuery = this.prisma.user.findFirst({
+      where: {
+        id: {
+          equals: user_id,
+        },
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    transactionArray.push(findUserQuery);
+
+    const verifyEmailQuery = this.prisma.user.findFirst({
+      where: {
+        email: {
+          equals: email,
+        },
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    transactionArray.push(verifyEmailQuery);
+
+    return Promise.resolve(this.prisma.$transaction(transactionArray)).then(
+      ([user, validation]) => {
+        if (!user) {
+          throw new BadRequestException('Usuário não encontrado');
+        } else if (validation) {
+          throw new BadRequestException(`Já existe um usuário com o email: ${email}.`);
+        }
+
+        return this.prisma.user.update({
           where: {
-            id: {
-              equals: user_id,
-            },
+            id: user_id,
           },
-          select: {
-            id: true,
+          data: {
+            name,
+            email: email,
+            updated_at: new Date(),
           },
-        })
-        .catch(() => {
-          throw new BadRequestException('Usuário não encontrado!');
-        }),
-    ).then((_) =>
-      this.prisma.user.update({
-        where: {
-          id: user_id,
-        },
-        data: {
-          name,
-          email,
-          updated_at: new Date(),
-        },
-        ...select,
-      }),
+          ...select,
+        });
+      },
     );
   }
 
@@ -104,9 +126,7 @@ export class UsersService {
       this.prisma.user
         .delete({
           where: {
-            id: {
-              equals: user_id,
-            },
+            id: user_id,
           },
           ...select,
         })
