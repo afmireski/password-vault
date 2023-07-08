@@ -1,36 +1,38 @@
 import { UsePipes, ValidationPipe } from '@nestjs/common';
-import { Args, Info, Query, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { GraphQLResolveInfo } from 'graphql';
-import { User } from 'prisma/@generated/user/user.model';
 import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
 import { CreateUserInput } from './dtos/create-user.input';
-import { FindUserInput } from './dtos/find-user.input';
-import { UsersService } from './users.service';
-import { UpdateUserInput } from './dtos/update-user.input';
 import { DeleteUserInput } from './dtos/delete-user.input';
+import { FindUserInput } from './dtos/find-user.input';
+import { UpdateUserInput } from './dtos/update-user.input';
+import { UserDTO } from './dtos/user.dto';
+import { UsersService } from './users.service';
 
 @Resolver()
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Mutation(() => User)
+  @Mutation(() => UserDTO)
   @UsePipes(ValidationPipe)
   async CreateUser(
     @Args('input') input: CreateUserInput,
     @Info() info: GraphQLResolveInfo,
-  ): PrismaResponse<User> {
+  ): PrismaResponse<UserDTO> {
     const select = new PrismaSelect(info).value;
 
-    return this.usersService.createUser(input, select);
+    const request: PrismaRequest<CreateUserInput> = { input, select };
+
+    return this.usersService.createUser(request);
   }
 
-  @Query(() => User)
+  @Query(() => UserDTO)
   @UsePipes(ValidationPipe)
   async FindUser(
     @Args() input: FindUserInput,
     @Info() info: GraphQLResolveInfo,
-  ): PrismaResponse<User> {
+  ): PrismaResponse<UserDTO> {
     const select = new PrismaSelect(info).value;
 
     const request: PrismaRequest<FindUserInput> = { input, select };
@@ -38,12 +40,12 @@ export class UsersResolver {
     return this.usersService.findUser(request);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => UserDTO)
   @UsePipes(ValidationPipe)
   async UpdateUser(
     @Args('input') input: UpdateUserInput,
     @Info() info: GraphQLResolveInfo,
-  ): PrismaResponse<User> {
+  ): PrismaResponse<UserDTO> {
     const select = new PrismaSelect(info).value;
 
     const request: PrismaRequest<UpdateUserInput> = { input, select };
@@ -51,12 +53,12 @@ export class UsersResolver {
     return this.usersService.updateUser(request);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => UserDTO)
   @UsePipes(ValidationPipe)
   async DeleteUser(
     @Args('input') input: DeleteUserInput,
     @Info() info: GraphQLResolveInfo,
-  ): PrismaResponse<User> {
+  ): PrismaResponse<UserDTO> {
     const select = new PrismaSelect(info).value;
 
     const request: PrismaRequest<DeleteUserInput> = { input, select };

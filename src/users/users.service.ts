@@ -11,12 +11,16 @@ import { CreateUserInput } from './dtos/create-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 import { UpdateUserInput } from './dtos/update-user.input';
 import { DeleteUserInput } from './dtos/delete-user.input';
+import { UserDTO } from './dtos/user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createUser(input: CreateUserInput, select: any): PrismaResponse<User> {
+  async createUser(
+    request: PrismaRequest<CreateUserInput>,
+  ): PrismaResponse<UserDTO> {
+    const { input, select } = request;
     const { email, name, password } = input;
 
     const salt = bcrypt.genSaltSync(10);
@@ -35,7 +39,9 @@ export class UsersService {
     });
   }
 
-  async findUser(request: PrismaRequest<FindUserInput>): PrismaResponse<User> {
+  async findUser(
+    request: PrismaRequest<FindUserInput>,
+  ): PrismaResponse<UserDTO> {
     const { input, select } = request;
     const { user_id } = input;
 
@@ -55,7 +61,7 @@ export class UsersService {
 
   async updateUser(
     request: PrismaRequest<UpdateUserInput>,
-  ): PrismaResponse<User> {
+  ): PrismaResponse<UserDTO> {
     const { input, select } = request;
     const { user_id, name, email } = input;
 
@@ -89,7 +95,9 @@ export class UsersService {
     );
   }
 
-  async deleteUserInput(request: PrismaRequest<DeleteUserInput>) {
+  async deleteUserInput(
+    request: PrismaRequest<DeleteUserInput>,
+  ): PrismaResponse<UserDTO> {
     const { input, select } = request;
     const { user_id } = input;
 
@@ -101,7 +109,7 @@ export class UsersService {
               equals: user_id,
             },
           },
-          ...select
+          ...select,
         })
         .catch(() => {
           throw new InternalServerErrorException('Falha ao excluir o usuário!');
