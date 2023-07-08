@@ -4,13 +4,12 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { User } from '../../prisma/@generated/user/user.model';
 import { PrismaService } from '../prisma/prisma.service';
 import { PrismaRequest, PrismaResponse } from '../types/custom-types';
 import { CreateUserInput } from './dtos/create-user.input';
+import { DeleteUserInput } from './dtos/delete-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 import { UpdateUserInput } from './dtos/update-user.input';
-import { DeleteUserInput } from './dtos/delete-user.input';
 import { UserDTO } from './dtos/user.dto';
 
 @Injectable()
