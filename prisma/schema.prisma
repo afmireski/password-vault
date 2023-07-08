@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["clientExtensions", "extendedWhereUnique"]
+  previewFeatures = ["extendedWhereUnique"]
 }
 
 datasource db {
@@ -13,7 +13,7 @@ datasource db {
 
 generator nestjsgraphql {
   provider                 = "prisma-nestjs-graphql"
-  output                   = "./@generated"
+  output                   = "../src/prisma/@generated"
   fields_Validator_input   = "true"
   fields_Validator_from    = "class-validator"
   fields_Transformer_model = "true"

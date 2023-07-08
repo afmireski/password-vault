@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { UserCount } from 'prisma/@generated/user/user-count.output';
+import { UserCount } from '../../prisma/@generated/user/user-count.output';
 
 @ObjectType()
 export class UserDTO {
