@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["extendedWhereUnique"]
 }
 
 datasource db {
@@ -12,7 +13,7 @@ datasource db {
 
 generator nestjsgraphql {
   provider                 = "prisma-nestjs-graphql"
-  output                   = "./@generated"
+  output                   = "../src/prisma/@generated"
   fields_Validator_input   = "true"
   fields_Validator_from    = "class-validator"
   fields_Transformer_model = "true"
@@ -38,7 +39,7 @@ model User {
   /// @Validator.IsString()
   /// @Validator.Length(6, 100)
   /// @Validator.IsNotEmpty()
-  /// @HideField({ input: false, output: true })
+  /// @HideField({ input: true, output: true })
   password String @db.VarChar(100)
 
   /// @Validator.ValidatedNested()

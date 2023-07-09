@@ -6,6 +6,8 @@ services:
     container_name: postgres_db
     restart: always
     tty: true
+    volumes:
+      - ./.docker/dbdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=password_vault
