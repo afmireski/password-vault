@@ -26,17 +26,33 @@ export class UsersService {
     const salt = bcrypt.genSaltSync(10);
 
     return Promise.resolve(
-      this.prisma.extension.user.create({
-        data: {
-          email,
-          name,
-          password: bcrypt.hashSync(password, salt),
+      this.prisma.user.findFirst({
+        where: {
+          email: {
+            equals: email,
+          },
         },
-        ...select,
       }),
-    ).catch(() => {
-      throw new InternalServerErrorException('Falha ao criar o usuário');
-    });
+    )
+      .then((user) => {
+        if (user) {
+          throw new BadRequestException(
+            `Já existe um usuário com o email: ${email}.`,
+          );
+        }
+
+        return this.prisma.extension.user.create({
+          data: {
+            email,
+            name,
+            password: bcrypt.hashSync(password, salt),
+          },
+          ...select,
+        });
+      })
+      .catch(() => {
+        throw new InternalServerErrorException('Falha ao criar o usuário');
+      });
   }
 
   async findUser(
@@ -98,7 +114,9 @@ export class UsersService {
         if (!user) {
           throw new BadRequestException('Usuário não encontrado');
         } else if (validation) {
-          throw new BadRequestException(`Já existe um usuário com o email: ${email}.`);
+          throw new BadRequestException(
+            `Já existe um usuário com o email: ${email}.`,
+          );
         }
 
         return this.prisma.user.update({
