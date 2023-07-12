@@ -8,6 +8,7 @@ import { PrismaRequest, PrismaResponse, PrismaResponseArray } from 'src/types/cu
 import { PrismaSelect } from '@paljs/plugins';
 import { FindCategoryInput } from './dtos/find-category.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
+import { UpdateCategoryInput } from './dtos/update-category.input';
 
 @Resolver()
 export class CategoriesResolver {
@@ -59,6 +60,22 @@ export class CategoriesResolver {
     };
     
     return this.categoriesService.findManyCategories(request);
+  }
+
+  @Mutation(() => CategoryDTO)
+  @UsePipes(ValidationPipe)
+  async UpdateCategory(
+    @Args('input') input: UpdateCategoryInput,
+    @Info() info: GraphQLResolveInfo
+  ): PrismaResponse<CategoryDTO> {
+    const select = new PrismaSelect(info).value;
+
+    const request: PrismaRequest<UpdateCategoryInput> = {
+      input,
+      select,
+    };
+    
+    return this.categoriesService.updateCategory(request);
   }
 
 }
