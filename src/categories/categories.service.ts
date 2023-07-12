@@ -44,4 +44,8 @@ export class CategoriesService {
         throw new InternalServerErrorException("Categoria não encontrada");
     });
   }
+
+  async findManyCategories(request: PrismaRequest<FindManyCategoriesInput>): PrismaResponse<CategoryDTO> {
+    
+  }
 }
