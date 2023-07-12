@@ -1,7 +1,7 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { ArgsType, Field, InputType } from '@nestjs/graphql';
 import * as Validator from 'class-validator';
 
-@InputType()
+@ArgsType()
 export class FindCategoryInput {
   @Field(() => String, { nullable: false })
   @Validator.IsUUID('4')
