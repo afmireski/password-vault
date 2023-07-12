@@ -1,8 +1,9 @@
-import { Field, ID } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import * as Transformer from 'class-transformer';
 import { CategoryCount } from '../../prisma/@generated/category/category-count.output';
 import { UserDTO } from '../../users/dtos/user.dto';
 
+@ObjectType()
 export class CategoryDTO {
   @Field(() => ID, { nullable: false })
   id!: string;
