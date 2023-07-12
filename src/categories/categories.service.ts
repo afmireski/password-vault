@@ -83,4 +83,8 @@ export class CategoriesService {
       }),
     );
   }
+
+  async updateCategory(request: PrismaRequest<UpdateCategoryInput>): PrismaResponse<CategoryDTO> {
+    
+  }
 }
