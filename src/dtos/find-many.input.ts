@@ -1,5 +1,5 @@
 import { Type } from "@nestjs/common";
-import { Field, InputType } from "@nestjs/graphql";
+import { ArgsType, Field, InputType } from "@nestjs/graphql";
 import { Pagination, PaginationInterface } from "./pagination.input";
 import * as Validator from 'class-validator';
 import * as Transformer from 'class-transformer';
@@ -11,7 +11,7 @@ export interface FindManyInterface<T, U> {
 }
 
 export function FindManyInput<T, U>(t: Type<T>, u: Type<U>): Type<FindManyInterface<T, U>> {
-    @InputType({ isAbstract: true })
+    @ArgsType()
     abstract class FindManyType implements FindManyInterface<T, U> {
         @Field(() => t, { nullable: true })
         @Transformer.Type(() => t)

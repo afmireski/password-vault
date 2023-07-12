@@ -4,9 +4,10 @@ import { CategoryDTO } from './dtos/category.dto';
 import { UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateCategoryInput } from './dtos/create-category.input';
 import { GraphQLResolveInfo } from 'graphql';
-import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
+import { PrismaRequest, PrismaResponse, PrismaResponseArray } from 'src/types/custom-types';
 import { PrismaSelect } from '@paljs/plugins';
 import { FindCategoryInput } from './dtos/find-category.input';
+import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 
 @Resolver()
 export class CategoriesResolver {
@@ -42,6 +43,22 @@ export class CategoriesResolver {
     };
     
     return this.categoriesService.findCategory(request);
+  }
+
+  @Query(() => [CategoryDTO])
+  @UsePipes(ValidationPipe)
+  async FindManyCategories(
+    @Args() input: FindManyCategoriesInput,
+    @Info() info: GraphQLResolveInfo
+  ): PrismaResponseArray<CategoryDTO> {
+    const select = new PrismaSelect(info).value;
+
+    const request: PrismaRequest<FindManyCategoriesInput> = {
+      input,
+      select,
+    };
+    
+    return this.categoriesService.findManyCategories(request);
   }
 
 }
