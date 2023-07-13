@@ -4,11 +4,17 @@ import { CategoryDTO } from './dtos/category.dto';
 import { UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateCategoryInput } from './dtos/create-category.input';
 import { GraphQLResolveInfo } from 'graphql';
-import { PrismaRequest, PrismaResponse, PrismaResponseArray } from 'src/types/custom-types';
+import {
+  PrismaRequest,
+  PrismaResponse,
+  PrismaResponseArray,
+} from 'src/types/custom-types';
 import { PrismaSelect } from '@paljs/plugins';
 import { FindCategoryInput } from './dtos/find-category.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
+import { DeleteCategoryInput } from './dtos/delete-category.input';
+import { VoidScalar } from 'src/types/void.scalar';
 
 @Resolver()
 export class CategoriesResolver {
@@ -18,7 +24,7 @@ export class CategoriesResolver {
   @UsePipes(ValidationPipe)
   async CreateCategory(
     @Args('input') input: CreateCategoryInput,
-    @Info() info: GraphQLResolveInfo
+    @Info() info: GraphQLResolveInfo,
   ): PrismaResponse<CategoryDTO> {
     const select = new PrismaSelect(info).value;
 
@@ -26,7 +32,7 @@ export class CategoriesResolver {
       input,
       select,
     };
-    
+
     return this.categoriesService.createCategory(request);
   }
 
@@ -34,7 +40,7 @@ export class CategoriesResolver {
   @UsePipes(ValidationPipe)
   async FindCategory(
     @Args() input: FindCategoryInput,
-    @Info() info: GraphQLResolveInfo
+    @Info() info: GraphQLResolveInfo,
   ): PrismaResponse<CategoryDTO> {
     const select = new PrismaSelect(info).value;
 
@@ -42,7 +48,7 @@ export class CategoriesResolver {
       input,
       select,
     };
-    
+
     return this.categoriesService.findCategory(request);
   }
 
@@ -50,7 +56,7 @@ export class CategoriesResolver {
   @UsePipes(ValidationPipe)
   async FindManyCategories(
     @Args() input: FindManyCategoriesInput,
-    @Info() info: GraphQLResolveInfo
+    @Info() info: GraphQLResolveInfo,
   ): PrismaResponseArray<CategoryDTO> {
     const select = new PrismaSelect(info).value;
 
@@ -58,7 +64,7 @@ export class CategoriesResolver {
       input,
       select,
     };
-    
+
     return this.categoriesService.findManyCategories(request);
   }
 
@@ -66,7 +72,7 @@ export class CategoriesResolver {
   @UsePipes(ValidationPipe)
   async UpdateCategory(
     @Args('input') input: UpdateCategoryInput,
-    @Info() info: GraphQLResolveInfo
+    @Info() info: GraphQLResolveInfo,
   ): PrismaResponse<CategoryDTO> {
     const select = new PrismaSelect(info).value;
 
@@ -74,8 +80,20 @@ export class CategoriesResolver {
       input,
       select,
     };
-    
+
     return this.categoriesService.updateCategory(request);
   }
 
+  @Mutation(() => VoidScalar)
+  @UsePipes(ValidationPipe)
+  async DeleteCategory(
+    @Args('input') input: DeleteCategoryInput,
+  ): Promise<void> {
+    const request: PrismaRequest<DeleteCategoryInput> = {
+      input,
+      select: undefined,
+    };
+
+    this.categoriesService.deleteCategory(request);
+  }
 }
