@@ -14,6 +14,7 @@ import { CategoryDTO } from './dtos/category.dto';
 import { FindCategoryInput } from './dtos/find-category.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
+import { DeleteCategoryInput } from './dtos/delete-category.input';
 
 @Injectable()
 export class CategoriesService {
@@ -117,17 +118,43 @@ export class CategoriesService {
       if (!category) {
         throw new BadRequestException('Categoria não encontrada');
       }
-      return this.prisma.category.update({
+      return this.prisma.category
+        .update({
+          where: {
+            id: category_id,
+          },
+          data: {
+            name: name,
+            updated_at: new Date(),
+          },
+          ...select,
+        })
+        .catch(() => {
+          throw new InternalServerErrorException(
+            'Falha ao atualizar a categoria',
+          );
+        });
+    });
+  }
+
+  async deleteCategory(
+    request: PrismaRequest<DeleteCategoryInput>,
+  ): Promise<void> {
+    const {
+      input: { category_id, user_id },
+    } = request;
+
+    Promise.resolve(
+      this.prisma.category.delete({
         where: {
           id: category_id,
+          user_id: user_id,
         },
-        data: {
-          name: name,
-          updated_at: new Date(),
-        },
-      }).catch(() => {
-        throw new InternalServerErrorException('Falha ao atualizar a categoria');
-      });
+      }),
+    ).catch(() => {
+      throw new InternalServerErrorException(
+        'Houve uma falha ao tentar apagar a categoria!',
+      );
     });
   }
 }
