@@ -22,14 +22,239 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type CategoryCount {
+  passwords: Int!
+}
+
+type CategoryDTO {
+  id: ID!
+  user_id: String!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  deleted_at: DateTime
+  user: UserDTO!
+  _count: CategoryCount!
+}
+
+type Success {
+  success: Boolean!
+}
+
 type Query {
   FindUser(user_id: String!): UserDTO!
+  FindCategory(category_id: String!): CategoryDTO!
+  FindManyCategories(where: CategoryWhereInput, orderBy: CategoryOrderByWithRelationInput, pagination: Pagination, user_id: String!): [CategoryDTO!]!
+}
+
+input CategoryWhereInput {
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
+  id: UuidFilter
+  user_id: UuidFilter
+  name: StringFilter
+  user: UserRelationFilter
+  passwords: PasswordListRelationFilter
+}
+
+input UuidFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  mode: QueryMode
+  not: NestedUuidFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedUuidFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  not: NestedUuidFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+  id: UuidFilter
+  email: StringFilter
+  name: StringFilter
+  categories: CategoryListRelationFilter
+  passwords: PasswordListRelationFilter
+}
+
+input CategoryListRelationFilter {
+  every: CategoryWhereInput
+  some: CategoryWhereInput
+  none: CategoryWhereInput
+}
+
+input PasswordListRelationFilter {
+  every: PasswordWhereInput
+  some: PasswordWhereInput
+  none: PasswordWhereInput
+}
+
+input PasswordWhereInput {
+  AND: [PasswordWhereInput!]
+  OR: [PasswordWhereInput!]
+  NOT: [PasswordWhereInput!]
+  id: UuidFilter
+  user_id: UuidFilter
+  category_id: UuidNullableFilter
+  title: StringFilter
+  description: StringNullableFilter
+  value: StringFilter
+  user: UserRelationFilter
+  category: CategoryRelationFilter
+}
+
+input UuidNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  mode: QueryMode
+  not: NestedUuidNullableFilter
+}
+
+input NestedUuidNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  not: NestedUuidNullableFilter
+}
+
+input StringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringNullableFilter
+}
+
+input NestedStringNullableFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringNullableFilter
+}
+
+input CategoryRelationFilter {
+  is: CategoryWhereInput
+  isNot: CategoryWhereInput
+}
+
+input CategoryOrderByWithRelationInput {
+  id: SortOrder
+  user_id: SortOrder
+  name: SortOrder
+  user: UserOrderByWithRelationInput
+  passwords: PasswordOrderByRelationAggregateInput
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input UserOrderByWithRelationInput {
+  id: SortOrder
+  email: SortOrder
+  name: SortOrder
+  categories: CategoryOrderByRelationAggregateInput
+  passwords: PasswordOrderByRelationAggregateInput
+}
+
+input CategoryOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input PasswordOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input Pagination {
+  skip: Int!
+  take: Int!
 }
 
 type Mutation {
   CreateUser(input: CreateUserInput!): UserDTO!
   UpdateUser(input: UpdateUserInput!): UserDTO!
   DeleteUser(input: DeleteUserInput!): UserDTO!
+  CreateCategory(input: CreateCategoryInput!): CategoryDTO!
+  UpdateCategory(input: UpdateCategoryInput!): CategoryDTO!
+  DeleteCategory(input: DeleteCategoryInput!): Success!
 }
 
 input CreateUserInput {
@@ -45,5 +270,21 @@ input UpdateUserInput {
 }
 
 input DeleteUserInput {
+  user_id: String!
+}
+
+input CreateCategoryInput {
+  user_id: String!
+  name: String!
+}
+
+input UpdateCategoryInput {
+  category_id: String!
+  user_id: String!
+  name: String!
+}
+
+input DeleteCategoryInput {
+  category_id: String!
   user_id: String!
 }

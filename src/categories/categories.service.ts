@@ -3,18 +3,19 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import {
   PrismaRequest,
   PrismaResponse,
   PrismaResponseArray,
-} from 'src/types/custom-types';
+} from '../types/custom-types';
 import { CreateCategoryInput } from './dtos/create-category.input';
 import { CategoryDTO } from './dtos/category.dto';
 import { FindCategoryInput } from './dtos/find-category.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
 import { DeleteCategoryInput } from './dtos/delete-category.input';
+import { Success } from 'src/dtos/success.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -139,22 +140,24 @@ export class CategoriesService {
 
   async deleteCategory(
     request: PrismaRequest<DeleteCategoryInput>,
-  ): Promise<void> {
+  ): Promise<Success> {
     const {
       input: { category_id, user_id },
     } = request;
 
-    Promise.resolve(
+    return Promise.resolve(
       this.prisma.category.delete({
         where: {
           id: category_id,
           user_id: user_id,
         },
       }),
-    ).catch(() => {
-      throw new InternalServerErrorException(
-        'Houve uma falha ao tentar apagar a categoria!',
-      );
-    });
+    )
+      .then(() => ({ success: true }))
+      .catch(() => {
+        throw new InternalServerErrorException(
+          'Houve uma falha ao tentar apagar a categoria!',
+        );
+      });
   }
 }

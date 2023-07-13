@@ -8,13 +8,13 @@ import {
   PrismaRequest,
   PrismaResponse,
   PrismaResponseArray,
-} from 'src/types/custom-types';
+} from '../types/custom-types';
 import { PrismaSelect } from '@paljs/plugins';
 import { FindCategoryInput } from './dtos/find-category.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
 import { DeleteCategoryInput } from './dtos/delete-category.input';
-import { VoidScalar } from 'src/types/void.scalar';
+import { Success } from '../dtos/success.dto';
 
 @Resolver()
 export class CategoriesResolver {
@@ -84,16 +84,16 @@ export class CategoriesResolver {
     return this.categoriesService.updateCategory(request);
   }
 
-  @Mutation(() => VoidScalar)
+  @Mutation(() => Success)
   @UsePipes(ValidationPipe)
   async DeleteCategory(
     @Args('input') input: DeleteCategoryInput,
-  ): Promise<void> {
+  ): Promise<Success> {
     const request: PrismaRequest<DeleteCategoryInput> = {
       input,
       select: undefined,
     };
 
-    this.categoriesService.deleteCategory(request);
+    return this.categoriesService.deleteCategory(request);
   }
 }

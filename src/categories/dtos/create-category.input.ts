@@ -9,7 +9,6 @@ export class CreateCategoryInput {
   user_id!: string;
 
   @Field(() => String, { nullable: false })
-  @Validator.IsUUID('4')
   @Validator.Length(1, 50)
   name!: string;
 }
