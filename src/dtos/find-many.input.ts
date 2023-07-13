@@ -26,7 +26,7 @@ export function FindManyInput<T, U>(t: Type<T>, u: Type<U>): Type<FindManyInterf
         orderBy?: U;
 
 
-        @Field(() => Pagination, { nullable: true })
+        @Field(() => Pagination, { nullable: true, defaultValue: {} })
         @Transformer.Type(() => Pagination)
         @Validator.IsOptional()
         @Validator.ValidateNested()

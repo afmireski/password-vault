@@ -44,7 +44,7 @@ type Success {
 type Query {
   FindUser(user_id: String!): UserDTO!
   FindCategory(category_id: String!): CategoryDTO!
-  FindManyCategories(where: CategoryWhereInput, orderBy: CategoryOrderByWithRelationInput, pagination: Pagination, user_id: String!): [CategoryDTO!]!
+  FindManyCategories(where: CategoryWhereInput, orderBy: CategoryOrderByWithRelationInput, pagination: Pagination = {}, user_id: String!): [CategoryDTO!]!
 }
 
 input CategoryWhereInput {

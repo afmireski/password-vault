@@ -10,7 +10,7 @@ export interface PaginationInterface {
 @InputType()
 export class Pagination implements PaginationInterface{
     @Field(() => Int, { nullable: false })
-    @Validator.IsPositive()
+    @Validator.Min(0)
     @Validator.IsOptional()
     skip?: number;
 
