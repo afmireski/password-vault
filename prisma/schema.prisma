@@ -118,18 +118,16 @@ model Password {
   category_id String? @db.Uuid()
 
   /// @Validator.IsString()
-  /// @Validator.IsNotEmpty()
-  /// @Validator.Length(0, 50)
-  title String @db.VarChar(50)
+  /// @Validator.IsOptional()
+  /// @Validator.MaxLength(0, 50)
+  description String? @db.VarChar(50)
 
   /// @Validator.IsString()
   /// @Validator.IsOptional()
-  /// @Validator.Length(0, 200)
-  description String? @db.VarChar(200)
+  username String?
 
   /// @Validator.IsString()
   /// @Validator.IsNotEmpty()
-  /// @Validator.MinLength(6)
   value String
 
   /// @Transformer.Type(() => User)
