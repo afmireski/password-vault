@@ -5,7 +5,7 @@ import { PasswordOrderByWithRelationInput } from '../../prisma/@generated/passwo
 import { PasswordWhereInput } from '../../prisma/@generated/password/password-where.input';
 
 @InputType()
-export class FindManyPasswords extends FindManyInput(
+export class FindManyPasswordsInput extends FindManyInput(
   PasswordWhereInput,
   PasswordOrderByWithRelationInput,
 ) {
