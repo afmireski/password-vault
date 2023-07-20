@@ -6,11 +6,11 @@ import { SignupPersistanceGatewayInterface } from './gateways/signup-gateway.int
 
 @Injectable()
 export class SignupService {
-  constructor(@Inject('SignupPersistenceGateway') private readonly SignupGateway: SignupPersistanceGatewayInterface) {}
+  constructor(@Inject('SignupPersistenceGateway') private readonly signupGateway: SignupPersistanceGatewayInterface) {}
 
   async signup(request: SignupInputInterface): Promise<void> {
     const { email, name, password } = request;
 
-    await this.SignupGateway.register(new SignupDTO(email, name, password));
+    await this.signupGateway.register(new SignupDTO(email, name, password));
   }
 }
