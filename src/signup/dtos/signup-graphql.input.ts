@@ -1,8 +1,9 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { SignupInputInterface } from './signup-input.interface';
 import * as Validator from 'class-validator';
+import { Field, InputType } from '@nestjs/graphql'
 
 @InputType()
-export class CreateUserInput {
+export class SignupGraphQLInput implements SignupInputInterface {
   @Field(() => String, { nullable: false })
   @Validator.IsEmail()
   @Validator.MaxLength(100, {

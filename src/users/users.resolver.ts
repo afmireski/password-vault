@@ -3,7 +3,7 @@ import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { GraphQLResolveInfo } from 'graphql';
 import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
-import { CreateUserInput } from './dtos/create-user.input';
+import { SignupInputInterface } from '../signup/dtos/signup-input.interface';
 import { DeleteUserInput } from './dtos/delete-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 import { UpdateUserInput } from './dtos/update-user.input';
@@ -17,12 +17,12 @@ export class UsersResolver {
   @Mutation(() => UserDTO)
   @UsePipes(ValidationPipe)
   async CreateUser(
-    @Args('input') input: CreateUserInput,
+    @Args('input') input: SignupInputInterface,
     @Info() info: GraphQLResolveInfo,
   ): PrismaResponse<UserDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: PrismaRequest<CreateUserInput> = { input, select };
+    const request: PrismaRequest<SignupInputInterface> = { input, select };
 
     return this.usersService.createUser(request);
   }

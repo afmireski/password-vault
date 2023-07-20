@@ -6,7 +6,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
 import { PrismaRequest, PrismaResponse } from '../types/custom-types';
-import { CreateUserInput } from './dtos/create-user.input';
+import { SignupInputInterface } from '../signup/dtos/signup-input.interface';
 import { DeleteUserInput } from './dtos/delete-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 import { UpdateUserInput } from './dtos/update-user.input';
@@ -18,7 +18,7 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createUser(
-    request: PrismaRequest<CreateUserInput>,
+    request: PrismaRequest<SignupInputInterface>,
   ): PrismaResponse<UserDTO> {
     const { input, select } = request;
     const { email, name, password } = input;
