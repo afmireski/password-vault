@@ -3,44 +3,17 @@ import { Success } from 'src/dtos/success.dto';
 import { PrismaRequest, PrismaResponse } from 'src/types/custom-types';
 import { SignupInputInterface } from './dtos/signup-input.interface';
 import * as bcrypt from 'bcrypt';
+import { SignupGatewayInterface } from './gateways/signup-gateway.interface';
+import { SignupDTO } from './dtos/signup.dto';
 
 @Injectable()
 export class SignupService {
-  async signup(
-    request: PrismaRequest<SignupInputInterface>,
-  ): PrismaResponse<Success> {
-    const { input, select } = request;
+  constructor(private readonly gateway: SignupGatewayInterface) {}
+
+  async signup(request: PrismaRequest<SignupInputInterface>): Promise<void> {
+    const { input } = request;
     const { email, name, password } = input;
 
-    const salt = bcrypt.genSaltSync(10);
-
-    return Promise.resolve(
-      this.prisma.user.findFirst({
-        where: {
-          email: {
-            equals: email,
-          },
-        },
-      }),
-    )
-      .then((user) => {
-        if (user) {
-          throw new BadRequestException(
-            `Já existe um usuário com o email: ${email}.`,
-          );
-        }
-
-        return this.prisma.extension.user.create({
-          data: {
-            email,
-            name,
-            password: bcrypt.hashSync(password, salt),
-          },
-          ...select,
-        });
-      })
-      .catch(() => {
-        throw new InternalServerErrorException('Falha ao criar o usuário');
-      });
+    await this.gateway.register(new SignupDTO(email, name, password));
   }
 }
