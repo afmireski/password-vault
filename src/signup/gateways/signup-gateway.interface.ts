@@ -1,6 +1,6 @@
 import { SignupInputInterface } from "../dtos/signup-input.interface";
 import { SignupDTO } from "../dtos/signup.dto";
 
-export interface SignupGatewayInterface {
+export interface SignupPersistanceGatewayInterface {
     register(input: SignupDTO): Promise<void>
 }

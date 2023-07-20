@@ -6,10 +6,10 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SignupInputInterface } from '../dtos/signup-input.interface';
 import { SignupDTO } from '../dtos/signup.dto';
-import { SignupGatewayInterface } from './signup-gateway.interface';
+import { SignupPersistanceGatewayInterface } from './signup-gateway.interface';
 
 @Injectable()
-export class SignupPrismaGateway implements SignupGatewayInterface {
+export class SignupPrismaGateway implements SignupPersistanceGatewayInterface {
   constructor(private readonly prisma: PrismaService) {}
 
   async register(input: SignupDTO): Promise<void> {
