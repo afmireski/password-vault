@@ -14,19 +14,6 @@ import { UsersService } from './users.service';
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Mutation(() => UserDTO)
-  @UsePipes(ValidationPipe)
-  async CreateUser(
-    @Args('input') input: SignupInputInterface,
-    @Info() info: GraphQLResolveInfo,
-  ): PrismaResponse<UserDTO> {
-    const select = new PrismaSelect(info).value;
-
-    const request: PrismaRequest<SignupInputInterface> = { input, select };
-
-    return this.usersService.createUser(request);
-  }
-
   @Query(() => UserDTO)
   @UsePipes(ValidationPipe)
   async FindUser(

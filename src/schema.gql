@@ -150,11 +150,11 @@ input PasswordWhereInput {
   id: UuidFilter
   user_id: UuidFilter
   category_id: UuidNullableFilter
-  title: StringFilter
   description: StringNullableFilter
+  username: StringNullableFilter
   value: StringFilter
   user: UserRelationFilter
-  category: CategoryRelationFilter
+  category: CategoryNullableRelationFilter
 }
 
 input UuidNullableFilter {
@@ -209,7 +209,7 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
 }
 
-input CategoryRelationFilter {
+input CategoryNullableRelationFilter {
   is: CategoryWhereInput
   isNot: CategoryWhereInput
 }
@@ -249,18 +249,11 @@ input Pagination {
 }
 
 type Mutation {
-  CreateUser(input: CreateUserInput!): UserDTO!
   UpdateUser(input: UpdateUserInput!): UserDTO!
   DeleteUser(input: DeleteUserInput!): UserDTO!
   CreateCategory(input: CreateCategoryInput!): CategoryDTO!
   UpdateCategory(input: UpdateCategoryInput!): CategoryDTO!
   DeleteCategory(input: DeleteCategoryInput!): Success!
-}
-
-input CreateUserInput {
-  email: String!
-  name: String!
-  password: String!
 }
 
 input UpdateUserInput {

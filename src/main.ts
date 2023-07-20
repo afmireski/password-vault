@@ -9,9 +9,6 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
 
-  const prismaService = app.get(PrismaService);
-  await prismaService.enableShutdownHooks(app);
-
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(configService.get('PORT'));

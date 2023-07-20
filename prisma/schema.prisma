@@ -118,7 +118,7 @@ model Password {
 
   /// @Validator.IsString()
   /// @Validator.IsOptional()
-  /// @Validator.MaxLength(0, 50)
+  /// @Validator.MaxLength(50)
   description String? @db.VarChar(50)
 
   /// @Validator.IsString()

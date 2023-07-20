@@ -10,7 +10,7 @@ import { SignupPrismaGateway } from './gateways/signup-prisma-gateway';
     SignupPrismaGateway,
     {
       provide: 'SignupPersistenceGateway',
-      useExisting: SignupPrismaGateway
+      useExisting: SignupPrismaGateway,
     }
    ]
 })
