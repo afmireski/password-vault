@@ -24,62 +24,9 @@ export class UsersService {
     return await this.userGateway.findUserById(request);
   }
 
-  /* async updateUser(request: Request<UpdateUserInput>): Response<UserDTO> {
-    const { input, select } = request;
-    const { user_id, name, email } = input;
-
-    const transactionArray = [];
-
-    const findUserQuery = this.prisma.user.findFirst({
-      where: {
-        id: {
-          equals: user_id,
-        },
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    transactionArray.push(findUserQuery);
-
-    const verifyEmailQuery = this.prisma.user.findFirst({
-      where: {
-        email: {
-          equals: email,
-        },
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    transactionArray.push(verifyEmailQuery);
-
-    return Promise.resolve(this.prisma.$transaction(transactionArray)).then(
-      ([user, validation]) => {
-        if (!user) {
-          throw new BadRequestException('Usuário não encontrado');
-        } else if (validation) {
-          throw new BadRequestException(
-            `Já existe um usuário com o email: ${email}.`,
-          );
-        }
-
-        return this.prisma.user.update({
-          where: {
-            id: user_id,
-          },
-          data: {
-            name,
-            email: email,
-            updated_at: new Date(),
-          },
-          ...select,
-        });
-      },
-    );
-  } */
+  async updateUser(request: Request<UpdateUserInput>): Response<UserDTO> {
+    return await this.userGateway.update(request);
+  }
 
   /* async deleteUserInput(request: Request<DeleteUserInput>): Response<UserDTO> {
     const { input, select } = request;
