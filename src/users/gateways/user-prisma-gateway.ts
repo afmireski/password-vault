@@ -3,13 +3,13 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { Request, Response } from '../../types/custom-types';
 import { FindUserByIdInterface } from '../dtos/find-user-by-id.interface';
 import { UserDTO } from '../dtos/user.dto';
-import { UserGatewayInterface } from './user-gateway.interface';
+import { UserPersistanceGateway } from './user-gateway.interface';
 
 @Injectable()
-export class UserPrismaGateway implements UserGatewayInterface {
+export class UserPrismaGateway implements UserPersistanceGateway {
   constructor(private readonly prisma: PrismaService) {}
 
-  findUserById(request: Request<FindUserByIdInterface>): Response<UserDTO> {
+  async findUserById(request: Request<FindUserByIdInterface>): Response<UserDTO> {
     const { input, select } = request;
     const { user_id } = input;
 

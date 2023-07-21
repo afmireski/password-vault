@@ -11,34 +11,20 @@ import { FindUserByIdInterface } from './dtos/find-user-by-id.interface';
 import { FindUserInput } from './dtos/find-user-graphql.input';
 import { UpdateUserInput } from './dtos/update-user.input';
 import { UserDTO } from './dtos/user.dto';
+import { UserPersistanceGateway } from './gateways/user-gateway.interface';
 
 @Injectable()
 export class UsersService {
-  constructor(@Inject('UserPersistenceGateway') private readonly userGateway) {}
+  constructor(
+    @Inject('UserPersistenceGateway')
+    private readonly userGateway: UserPersistanceGateway,
+  ) {}
 
-  async findUser(
-    request: Request<FindUserByIdInterface>,
-  ): Response<UserDTO> {
-    const { input, select } = request;
-    const { user_id } = input;
-
-    return Promise.resolve(
-      this.prisma.user.findFirstOrThrow({
-        where: {
-          id: {
-            equals: user_id,
-          },
-        },
-        ...select,
-      }),
-    ).catch(() => {
-      throw new BadRequestException('Usuário não encontrado');
-    });
+  async findUser(request: Request<FindUserByIdInterface>): Response<UserDTO> {
+    return await this.userGateway.findUserById(request);
   }
 
-  async updateUser(
-    request: Request<UpdateUserInput>,
-  ): Response<UserDTO> {
+  async updateUser(request: Request<UpdateUserInput>): Response<UserDTO> {
     const { input, select } = request;
     const { user_id, name, email } = input;
 
@@ -95,9 +81,7 @@ export class UsersService {
     );
   }
 
-  async deleteUserInput(
-    request: Request<DeleteUserInput>,
-  ): Response<UserDTO> {
+  async deleteUserInput(request: Request<DeleteUserInput>): Response<UserDTO> {
     const { input, select } = request;
     const { user_id } = input;
 
