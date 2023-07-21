@@ -7,4 +7,6 @@ export interface UserPersistanceGateway {
     findUserById(request: Request<FindUserByIdInput>): Response<UserDTO>;
 
     update(request: Request<UpdateUserInput>): Response<UserDTO>;
+
+    delete(request: Request<FindUserByIdInput>): Promise<void>
 }
