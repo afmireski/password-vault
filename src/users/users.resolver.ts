@@ -3,7 +3,7 @@ import { Args, Info, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { GraphQLResolveInfo } from 'graphql';
 import { Request, Response } from 'src/types/custom-types';
-import { FindUserInput } from './dtos/find-user-graphql.input';
+import { FindUserGraphQLInput } from './dtos/find-user-graphql.input';
 import { UserGraphQLDTO } from './dtos/user-graphql.dto';
 import { UsersService } from './users.service';
 
@@ -14,12 +14,12 @@ export class UsersResolver {
   @Query(() => UserGraphQLDTO)
   @UsePipes(ValidationPipe)
   async FindUser(
-    @Args() input: FindUserInput,
+    @Args() input: FindUserGraphQLInput,
     @Info() info: GraphQLResolveInfo,
   ): Response<UserGraphQLDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: Request<FindUserInput> = { input, select };
+    const request: Request<FindUserGraphQLInput> = { input, select };
 
     return this.usersService.findUser(request);
   }

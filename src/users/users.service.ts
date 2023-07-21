@@ -7,8 +7,8 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { Request, Response } from '../types/custom-types';
 import { DeleteUserInput } from './dtos/delete-user.input';
-import { FindUserByIdInterface } from './dtos/find-user-by-id.interface';
-import { FindUserInput } from './dtos/find-user-graphql.input';
+import { FindUserByIdInput } from './dtos/find-user-by-id.interface';
+import { FindUserGraphQLInput } from './dtos/find-user-graphql.input';
 import { UpdateUserInput } from './dtos/update-user.input';
 import { UserDTO } from './dtos/user.dto';
 import { UserPersistanceGateway } from './gateways/user-gateway.interface';
@@ -20,7 +20,7 @@ export class UsersService {
     private readonly userGateway: UserPersistanceGateway,
   ) {}
 
-  async findUser(request: Request<FindUserByIdInterface>): Response<UserDTO> {
+  async findUser(request: Request<FindUserByIdInput>): Response<UserDTO> {
     return await this.userGateway.findUserById(request);
   }
 

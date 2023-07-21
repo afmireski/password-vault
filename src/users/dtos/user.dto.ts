@@ -1,6 +1,3 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { UserCount } from '../../prisma/@generated/user/user-count.output';
-
 export interface UserDTO {
   id: string;
 

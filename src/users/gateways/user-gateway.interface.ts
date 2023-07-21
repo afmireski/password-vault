@@ -1,7 +1,10 @@
 import { Request, Response } from "src/types/custom-types";
-import { FindUserByIdInterface } from "../dtos/find-user-by-id.interface";
+import { FindUserByIdInput } from "../dtos/find-user-by-id.interface";
+import { UpdateUserInput } from "../dtos/update-user.input";
 import { UserDTO } from "../dtos/user.dto";
 
 export interface UserPersistanceGateway {
-    findUserById(request: Request<FindUserByIdInterface>): Response<UserDTO>;
+    findUserById(request: Request<FindUserByIdInput>): Response<UserDTO>;
+
+    update(request: Request<UpdateUserInput>): Response<UserDTO>;
 }
