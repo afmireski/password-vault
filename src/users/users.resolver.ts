@@ -5,7 +5,7 @@ import { GraphQLResolveInfo } from 'graphql';
 import { Request, Response } from 'src/types/custom-types';
 import { SignupInputInterface } from '../signup/dtos/signup-input.interface';
 import { DeleteUserInput } from './dtos/delete-user.input';
-import { FindUserInput } from './dtos/find-user.input';
+import { FindUserInput } from './dtos/find-user-graphql.input';
 import { UpdateUserInput } from './dtos/update-user.input';
 import { UserDTO } from './dtos/user.dto';
 import { UsersService } from './users.service';

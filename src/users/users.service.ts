@@ -1,21 +1,23 @@
 import {
   BadRequestException,
+  Inject,
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Request, Response } from '../types/custom-types';
 import { DeleteUserInput } from './dtos/delete-user.input';
-import { FindUserInput } from './dtos/find-user.input';
+import { FindUserByIdInterface } from './dtos/find-user-by-id.interface';
+import { FindUserInput } from './dtos/find-user-graphql.input';
 import { UpdateUserInput } from './dtos/update-user.input';
 import { UserDTO } from './dtos/user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(@Inject('UserPersistenceGateway') private readonly userGateway) {}
 
   async findUser(
-    request: Request<FindUserInput>,
+    request: Request<FindUserByIdInterface>,
   ): Response<UserDTO> {
     const { input, select } = request;
     const { user_id } = input;
