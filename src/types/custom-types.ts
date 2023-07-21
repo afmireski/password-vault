@@ -1,8 +1,8 @@
-export type PrismaRequest<T> = {
+export type Request<T> = {
   input: T;
   select: any;
 };
 
-export type PrismaResponse<T> = Promise<Partial<T>>;
+export type Response<T> = Promise<Partial<T>>;
 
-export type PrismaResponseArray<T> = Promise<Partial<T>[]>;
+export type ResponseArray<T> = Promise<Partial<T>[]>;

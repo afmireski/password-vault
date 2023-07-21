@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { PrismaRequest, PrismaResponse } from '../types/custom-types';
+import { Request, Response } from '../types/custom-types';
 import { DeleteUserInput } from './dtos/delete-user.input';
 import { FindUserInput } from './dtos/find-user.input';
 import { UpdateUserInput } from './dtos/update-user.input';
@@ -15,8 +15,8 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findUser(
-    request: PrismaRequest<FindUserInput>,
-  ): PrismaResponse<UserDTO> {
+    request: Request<FindUserInput>,
+  ): Response<UserDTO> {
     const { input, select } = request;
     const { user_id } = input;
 
@@ -35,8 +35,8 @@ export class UsersService {
   }
 
   async updateUser(
-    request: PrismaRequest<UpdateUserInput>,
-  ): PrismaResponse<UserDTO> {
+    request: Request<UpdateUserInput>,
+  ): Response<UserDTO> {
     const { input, select } = request;
     const { user_id, name, email } = input;
 
@@ -94,8 +94,8 @@ export class UsersService {
   }
 
   async deleteUserInput(
-    request: PrismaRequest<DeleteUserInput>,
-  ): PrismaResponse<UserDTO> {
+    request: Request<DeleteUserInput>,
+  ): Response<UserDTO> {
     const { input, select } = request;
     const { user_id } = input;
 

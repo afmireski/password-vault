@@ -5,9 +5,9 @@ import { UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateCategoryInput } from './dtos/create-category.input';
 import { GraphQLResolveInfo } from 'graphql';
 import {
-  PrismaRequest,
-  PrismaResponse,
-  PrismaResponseArray,
+  Request,
+  Response,
+  ResponseArray,
 } from '../types/custom-types';
 import { PrismaSelect } from '@paljs/plugins';
 import { FindCategoryInput } from './dtos/find-category.input';
@@ -25,10 +25,10 @@ export class CategoriesResolver {
   async CreateCategory(
     @Args('input') input: CreateCategoryInput,
     @Info() info: GraphQLResolveInfo,
-  ): PrismaResponse<CategoryDTO> {
+  ): Response<CategoryDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: PrismaRequest<CreateCategoryInput> = {
+    const request: Request<CreateCategoryInput> = {
       input,
       select,
     };
@@ -41,10 +41,10 @@ export class CategoriesResolver {
   async FindCategory(
     @Args() input: FindCategoryInput,
     @Info() info: GraphQLResolveInfo,
-  ): PrismaResponse<CategoryDTO> {
+  ): Response<CategoryDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: PrismaRequest<FindCategoryInput> = {
+    const request: Request<FindCategoryInput> = {
       input,
       select,
     };
@@ -57,10 +57,10 @@ export class CategoriesResolver {
   async FindManyCategories(
     @Args() input: FindManyCategoriesInput,
     @Info() info: GraphQLResolveInfo,
-  ): PrismaResponseArray<CategoryDTO> {
+  ): ResponseArray<CategoryDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: PrismaRequest<FindManyCategoriesInput> = {
+    const request: Request<FindManyCategoriesInput> = {
       input,
       select,
     };
@@ -73,10 +73,10 @@ export class CategoriesResolver {
   async UpdateCategory(
     @Args('input') input: UpdateCategoryInput,
     @Info() info: GraphQLResolveInfo,
-  ): PrismaResponse<CategoryDTO> {
+  ): Response<CategoryDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: PrismaRequest<UpdateCategoryInput> = {
+    const request: Request<UpdateCategoryInput> = {
       input,
       select,
     };
@@ -89,7 +89,7 @@ export class CategoriesResolver {
   async DeleteCategory(
     @Args('input') input: DeleteCategoryInput,
   ): Promise<Success> {
-    const request: PrismaRequest<DeleteCategoryInput> = {
+    const request: Request<DeleteCategoryInput> = {
       input,
       select: undefined,
     };

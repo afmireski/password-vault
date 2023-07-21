@@ -5,9 +5,9 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import {
-  PrismaRequest,
-  PrismaResponse,
-  PrismaResponseArray,
+  Request,
+  Response,
+  ResponseArray,
 } from '../types/custom-types';
 import { CreateCategoryInput } from './dtos/create-category.input';
 import { CategoryDTO } from './dtos/category.dto';
@@ -22,8 +22,8 @@ export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createCategory(
-    request: PrismaRequest<CreateCategoryInput>,
-  ): PrismaResponse<CategoryDTO> {
+    request: Request<CreateCategoryInput>,
+  ): Response<CategoryDTO> {
     const {
       input: { user_id, name },
       select,
@@ -45,8 +45,8 @@ export class CategoriesService {
   }
 
   async findCategory(
-    request: PrismaRequest<FindCategoryInput>,
-  ): PrismaResponse<CategoryDTO> {
+    request: Request<FindCategoryInput>,
+  ): Response<CategoryDTO> {
     const {
       input: { category_id },
       select,
@@ -67,8 +67,8 @@ export class CategoriesService {
   }
 
   async findManyCategories(
-    request: PrismaRequest<FindManyCategoriesInput>,
-  ): PrismaResponseArray<CategoryDTO> {
+    request: Request<FindManyCategoriesInput>,
+  ): ResponseArray<CategoryDTO> {
     const {
       input: {
         user_id,
@@ -96,8 +96,8 @@ export class CategoriesService {
   }
 
   async updateCategory(
-    request: PrismaRequest<UpdateCategoryInput>,
-  ): PrismaResponse<CategoryDTO> {
+    request: Request<UpdateCategoryInput>,
+  ): Response<CategoryDTO> {
     const {
       input: { user_id, category_id, name },
       select,
@@ -139,7 +139,7 @@ export class CategoriesService {
   }
 
   async deleteCategory(
-    request: PrismaRequest<DeleteCategoryInput>,
+    request: Request<DeleteCategoryInput>,
   ): Promise<Success> {
     const {
       input: { category_id, user_id },
