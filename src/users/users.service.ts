@@ -24,7 +24,7 @@ export class UsersService {
     return await this.userGateway.findUserById(request);
   }
 
-  async updateUser(request: Request<UpdateUserInput>): Response<UserDTO> {
+  /* async updateUser(request: Request<UpdateUserInput>): Response<UserDTO> {
     const { input, select } = request;
     const { user_id, name, email } = input;
 
@@ -79,9 +79,9 @@ export class UsersService {
         });
       },
     );
-  }
+  } */
 
-  async deleteUserInput(request: Request<DeleteUserInput>): Response<UserDTO> {
+  /* async deleteUserInput(request: Request<DeleteUserInput>): Response<UserDTO> {
     const { input, select } = request;
     const { user_id } = input;
 
@@ -97,5 +97,5 @@ export class UsersService {
           throw new InternalServerErrorException('Falha ao excluir o usuário!');
         }),
     );
-  }
+  } */
 }
