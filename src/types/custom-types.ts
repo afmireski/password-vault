@@ -1,6 +1,6 @@
 export type Request<T> = {
   input: T;
-  select: any;
+  select?: any;
 };
 
 export type Response<T> = Promise<Partial<T>>;

@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { Request, Response } from '../../types/custom-types';
 import { FindUserByIdInput } from '../dtos/find-user-by-id.interface';
@@ -86,7 +90,7 @@ export class UserPrismaGateway implements UserPersistanceGateway {
   }
 
   async delete(request: Request<FindUserByIdInput>): Promise<void> {
-    const { input, select } = request;
+    const { input } = request;
     const { user_id } = input;
 
     Promise.resolve(
@@ -94,8 +98,10 @@ export class UserPrismaGateway implements UserPersistanceGateway {
         .delete({
           where: {
             id: user_id,
+          },          
+          select: {
+            id: true,
           },
-          ...select,
         })
         .catch(() => {
           throw new InternalServerErrorException('Falha ao excluir o usuário!');

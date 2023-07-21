@@ -1,9 +1,11 @@
 import { UsePipes, ValidationPipe } from '@nestjs/common';
-import { Args, Info, Query, Resolver } from '@nestjs/graphql';
+import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PrismaSelect } from '@paljs/plugins';
 import { GraphQLResolveInfo } from 'graphql';
+import { Success } from 'src/dtos/success.dto';
 import { Request, Response } from 'src/types/custom-types';
 import { FindUserGraphQLInput } from './dtos/find-user-graphql.input';
+import { UpdateUserGraphQLInput } from './dtos/update-user-graphql.input';
 import { UserGraphQLDTO } from './dtos/user-graphql.dto';
 import { UsersService } from './users.service';
 
@@ -24,29 +26,29 @@ export class UsersResolver {
     return this.usersService.findUser(request);
   }
 
-  /* @Mutation(() => UserDTO)
+  @Mutation(() => UserGraphQLDTO)
   @UsePipes(ValidationPipe)
   async UpdateUser(
-    @Args('input') input: UpdateUserInput,
+    @Args('input') input: UpdateUserGraphQLInput,
     @Info() info: GraphQLResolveInfo,
-  ): Response<UserDTO> {
+  ): Response<UserGraphQLDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: Request<UpdateUserInput> = { input, select };
+    const request: Request<UpdateUserGraphQLInput> = { input, select };
 
     return this.usersService.updateUser(request);
-  } */
+  }
 
-  /* @Mutation(() => UserDTO)
+  @Mutation(() => Success)
   @UsePipes(ValidationPipe)
   async DeleteUser(
-    @Args('input') input: DeleteUserInput,
-    @Info() info: GraphQLResolveInfo,
-  ): Response<UserDTO> {
-    const select = new PrismaSelect(info).value;
+    @Args('input') input: FindUserGraphQLInput,
+  ): Response<Success> {
 
-    const request: Request<DeleteUserInput> = { input, select };
+    const request: Request<FindUserGraphQLInput> = { input };
 
-    return this.usersService.deleteUserInput(request);
-  } */
+    await this.usersService.deleteUserInput(request);
+
+    return { success: true };
+  }
 }
