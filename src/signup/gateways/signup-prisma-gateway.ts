@@ -13,9 +13,9 @@ export class SignupPrismaGateway implements SignupPersistanceGatewayInterface {
   constructor(private readonly prisma: PrismaService) {}
 
   async register(input: SignupDTO): Promise<void> {
-    const { email, name, password } = input;
+    const { email, name, password } = input;   
 
-    const emailsExists = this.prisma.user.findFirst({
+    const emailExists = await this.prisma.user.findFirst({
       where: {
         email: {
           equals: email,
@@ -23,7 +23,7 @@ export class SignupPrismaGateway implements SignupPersistanceGatewayInterface {
       },
     });
 
-    if (emailsExists) {
+    if (emailExists) {
       throw new BadRequestException(
         `Já existe um usuário cadastrado com o e-mail informado`,
       );

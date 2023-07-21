@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PrismaRequest } from 'src/types/custom-types';
 import { SignupInputInterface } from './dtos/signup-input.interface';
 import { SignupDTO } from './dtos/signup.dto';
 import { SignupPersistanceGatewayInterface } from './gateways/signup-gateway.interface';
