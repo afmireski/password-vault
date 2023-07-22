@@ -81,7 +81,7 @@ model Category {
   /// @Validator.ValidatedNested()
   /// @Transformer.Type(() => User)
   /// @HideField({ match: '{CategoryUncheckedCreateInput, CategoryCreateInput, CategoryUncheckedUpdateInput, CategoryUpdateInput}'})
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   /// @Validator.ValidatedNested()
   /// @Transformer.Type(() => Password)
@@ -132,12 +132,12 @@ model Password {
   /// @Transformer.Type(() => User)
   /// @Validator.ValidatedNested()
   /// @HideField({ match: '{PasswordUncheckedCreateInput, PasswordCreateInput, PasswordUncheckedUpdateInput, PasswordUpdateInput}'})
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   /// @Transformer.Type(() => Category)
   /// @Validator.ValidatedNested()
   /// @HideField({ match: '{PasswordUncheckedCreateInput, PasswordCreateInput, PasswordUncheckedUpdateInput, PasswordUpdateInput}'})
-  category Category? @relation(fields: [category_id], references: [id])
+  category Category? @relation(fields: [category_id], references: [id], onDelete: Cascade)
 
   /// @HideField({ input: true, output: false })
   created_at DateTime @default(now()) @db.Timestamptz(6)
