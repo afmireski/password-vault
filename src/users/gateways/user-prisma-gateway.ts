@@ -38,11 +38,9 @@ export class UserPrismaGateway implements UserPersistanceGateway {
 
     const transactionArray = [];
 
-    const findUserQuery = this.prisma.user.findFirst({
+    const findUserQuery = this.prisma.user.findUnique({
       where: {
-        id: {
-          equals: user_id,
-        },
+        id: user_id,
       },
       select: {
         id: true,
@@ -51,11 +49,9 @@ export class UserPrismaGateway implements UserPersistanceGateway {
 
     transactionArray.push(findUserQuery);
 
-    const verifyEmailQuery = this.prisma.user.findFirst({
+    const verifyEmailQuery = this.prisma.user.findUnique({
       where: {
-        email: {
-          equals: email,
-        },
+        email: email,
       },
       select: {
         id: true,
@@ -93,19 +89,18 @@ export class UserPrismaGateway implements UserPersistanceGateway {
     const { input } = request;
     const { user_id } = input;
 
-    Promise.resolve(
-      this.prisma.user
-        .delete({
-          where: {
-            id: user_id,
-          },
-          select: {
-            id: true,
-          },
-        })
-        .catch(() => {
-          throw new InternalServerErrorException('Falha ao excluir o usuário!');
-        }),
-    );
+    await this.prisma.user
+      .delete({
+        where: {
+          id: user_id,
+        },
+        select: {
+          id: true,
+        },
+      })
+      .catch((e) => {
+        console.error(e);
+        throw new InternalServerErrorException('Falha ao excluir o usuário!');
+      });
   }
 }
