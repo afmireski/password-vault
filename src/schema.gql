@@ -2,12 +2,16 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Success {
+  success: Boolean!
+}
+
 type UserCount {
   categories: Int!
   passwords: Int!
 }
 
-type UserDTO {
+type UserGraphQLDTO {
   id: ID!
   email: String!
   name: String!
@@ -33,16 +37,12 @@ type CategoryDTO {
   created_at: DateTime!
   updated_at: DateTime!
   deleted_at: DateTime
-  user: UserDTO!
+  user: UserGraphQLDTO!
   _count: CategoryCount!
 }
 
-type Success {
-  success: Boolean!
-}
-
 type Query {
-  FindUser(user_id: String!): UserDTO!
+  FindUser(user_id: String!): UserGraphQLDTO!
   FindCategory(category_id: String!): CategoryDTO!
   FindManyCategories(where: CategoryWhereInput, orderBy: CategoryOrderByWithRelationInput, pagination: Pagination = {}, user_id: String!): [CategoryDTO!]!
 }
@@ -249,22 +249,18 @@ input Pagination {
 }
 
 type Mutation {
-  UpdateUser(input: UpdateUserInput!): UserDTO!
-  DeleteUser(input: DeleteUserInput!): UserDTO!
+  UpdateUser(input: UpdateUserGraphQLInput!): UserGraphQLDTO!
+  DeleteUser(user_id: String!): Success!
   CreateCategory(input: CreateCategoryInput!): CategoryDTO!
   UpdateCategory(input: UpdateCategoryInput!): CategoryDTO!
   DeleteCategory(input: DeleteCategoryInput!): Success!
   SignUp(input: SignupGraphQLInput!): Success!
 }
 
-input UpdateUserInput {
+input UpdateUserGraphQLInput {
   user_id: String!
   email: String
   name: String
-}
-
-input DeleteUserInput {
-  user_id: String!
 }
 
 input CreateCategoryInput {

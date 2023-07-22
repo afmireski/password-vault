@@ -41,9 +41,7 @@ export class UsersResolver {
 
   @Mutation(() => Success)
   @UsePipes(ValidationPipe)
-  async DeleteUser(
-    @Args('input') input: FindUserGraphQLInput,
-  ): Response<Success> {
+  async DeleteUser(@Args() input: FindUserGraphQLInput): Response<Success> {
     const request: Request<FindUserGraphQLInput> = { input };
 
     await this.usersService.deleteUserInput(request);
