@@ -1,5 +1,5 @@
 import { Type } from '@nestjs/common';
-import { ArgsType, Field, InputType } from '@nestjs/graphql';
+import { ArgsType, Field } from '@nestjs/graphql';
 import { Pagination, PaginationInterface } from './pagination.input';
 import * as Validator from 'class-validator';
 import * as Transformer from 'class-transformer';

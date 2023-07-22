@@ -4,7 +4,6 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { SignupInputInterface } from '../dtos/signup-input.interface';
 import { SignupDTO } from '../dtos/signup.dto';
 import { SignupPersistanceGatewayInterface } from './signup-gateway.interface';
 
