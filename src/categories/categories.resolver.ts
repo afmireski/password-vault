@@ -4,11 +4,7 @@ import { CategoryDTO } from './dtos/category.dto';
 import { UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateCategoryInput } from './dtos/create-category.input';
 import { GraphQLResolveInfo } from 'graphql';
-import {
-  Request,
-  Response,
-  ResponseArray,
-} from '../types/custom-types';
+import { Request, Response, ResponseArray } from '../types/custom-types';
 import { PrismaSelect } from '@paljs/plugins';
 import { FindCategoryInput } from './dtos/find-category.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';

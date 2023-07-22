@@ -44,7 +44,6 @@ export class UsersResolver {
   async DeleteUser(
     @Args('input') input: FindUserGraphQLInput,
   ): Response<Success> {
-
     const request: Request<FindUserGraphQLInput> = { input };
 
     await this.usersService.deleteUserInput(request);

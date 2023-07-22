@@ -5,13 +5,13 @@ import { SignupPrismaGateway } from './gateways/signup-prisma-gateway';
 
 @Module({
   providers: [
-    SignupResolver, 
+    SignupResolver,
     SignupService,
     SignupPrismaGateway,
     {
       provide: 'SignupPersistenceGateway',
       useExisting: SignupPrismaGateway,
-    }
-   ]
+    },
+  ],
 })
 export class SignupModule {}

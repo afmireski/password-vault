@@ -4,11 +4,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import {
-  Request,
-  Response,
-  ResponseArray,
-} from '../types/custom-types';
+import { Request, Response, ResponseArray } from '../types/custom-types';
 import { CreateCategoryInput } from './dtos/create-category.input';
 import { CategoryDTO } from './dtos/category.dto';
 import { FindCategoryInput } from './dtos/find-category.input';

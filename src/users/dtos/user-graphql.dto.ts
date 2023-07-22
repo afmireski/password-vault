@@ -18,7 +18,7 @@ export class UserGraphQLDTO implements UserDTO {
 
   @Field(() => Date, { nullable: false })
   updated_at: Date;
-  
+
   @Field(() => Date, { nullable: true })
   deleted_at: Date | null;
 

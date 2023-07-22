@@ -5,7 +5,10 @@ import { SignupPersistanceGatewayInterface } from './gateways/signup-gateway.int
 
 @Injectable()
 export class SignupService {
-  constructor(@Inject('SignupPersistenceGateway') private readonly signupGateway: SignupPersistanceGatewayInterface) {}
+  constructor(
+    @Inject('SignupPersistenceGateway')
+    private readonly signupGateway: SignupPersistanceGatewayInterface,
+  ) {}
 
   async signup(request: SignupInputInterface): Promise<void> {
     const { email, name, password } = request;

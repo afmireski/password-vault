@@ -8,9 +8,8 @@ export class AccountPasswordDTO {
 
   private salt: string;
   private value: string;
-  
-  public get getValue() : string {
+
+  public get getValue(): string {
     return this.value;
   }
-  
 }

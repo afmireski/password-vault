@@ -98,7 +98,7 @@ export class UserPrismaGateway implements UserPersistanceGateway {
         .delete({
           where: {
             id: user_id,
-          },          
+          },
           select: {
             id: true,
           },

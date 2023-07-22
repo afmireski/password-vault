@@ -13,7 +13,7 @@ export class SignupPrismaGateway implements SignupPersistanceGatewayInterface {
   constructor(private readonly prisma: PrismaService) {}
 
   async register(input: SignupDTO): Promise<void> {
-    const { email, name, password } = input;   
+    const { email, name, password } = input;
 
     const emailExists = await this.prisma.user.findFirst({
       where: {

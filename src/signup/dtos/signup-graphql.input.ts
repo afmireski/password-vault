@@ -1,6 +1,6 @@
 import { SignupInputInterface } from './signup-input.interface';
 import * as Validator from 'class-validator';
-import { Field, InputType } from '@nestjs/graphql'
+import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class SignupGraphQLInput implements SignupInputInterface {
