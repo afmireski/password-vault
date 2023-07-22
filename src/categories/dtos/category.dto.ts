@@ -2,7 +2,6 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 import * as Transformer from 'class-transformer';
 import { UserGraphQLDTO } from 'src/users/dtos/user-graphql.dto';
 import { CategoryCount } from '../../prisma/@generated/category/category-count.output';
-import { UserDTO } from '../../users/dtos/user.dto';
 
 @ObjectType()
 export class CategoryDTO {
@@ -26,7 +25,7 @@ export class CategoryDTO {
 
   @Field(() => UserGraphQLDTO, { nullable: false })
   @Transformer.Type(() => UserGraphQLDTO)
-  user?: UserDTO;
+  user?: UserGraphQLDTO;
 
   @Field(() => CategoryCount, { nullable: false })
   _count?: CategoryCount;
