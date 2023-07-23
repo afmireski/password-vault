@@ -4,7 +4,7 @@ import { UserGraphQLDTO } from 'src/users/dtos/user-graphql.dto';
 import { CategoryCount } from '../../prisma/@generated/category/category-count.output';
 
 @ObjectType()
-export class CategoryDTO {
+export class CategoryGraphQLDTO {
   @Field(() => ID, { nullable: false })
   id!: string;
 

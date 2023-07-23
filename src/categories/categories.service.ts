@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Request, Response, ResponseArray } from '../types/custom-types';
-import { CreateCategoryInput } from './dtos/create-category.input';
-import { CategoryDTO } from './dtos/category.dto';
+import { CreateCategoryGraphQLInput } from './dtos/create-category-graphql.input';
+import { CategoryGraphQLDTO } from './dtos/category-graphql.dto';
 import { FindCategoryInput } from './dtos/find-category.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
@@ -18,8 +18,8 @@ export class CategoriesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createCategory(
-    request: Request<CreateCategoryInput>,
-  ): Response<CategoryDTO> {
+    request: Request<CreateCategoryGraphQLInput>,
+  ): Response<CategoryGraphQLDTO> {
     const {
       input: { user_id, name },
       select,
@@ -42,7 +42,7 @@ export class CategoriesService {
 
   async findCategory(
     request: Request<FindCategoryInput>,
-  ): Response<CategoryDTO> {
+  ): Response<CategoryGraphQLDTO> {
     const {
       input: { category_id },
       select,
@@ -64,7 +64,7 @@ export class CategoriesService {
 
   async findManyCategories(
     request: Request<FindManyCategoriesInput>,
-  ): ResponseArray<CategoryDTO> {
+  ): ResponseArray<CategoryGraphQLDTO> {
     const {
       input: {
         user_id,
@@ -93,7 +93,7 @@ export class CategoriesService {
 
   async updateCategory(
     request: Request<UpdateCategoryInput>,
-  ): Response<CategoryDTO> {
+  ): Response<CategoryGraphQLDTO> {
     const {
       input: { user_id, category_id, name },
       select,

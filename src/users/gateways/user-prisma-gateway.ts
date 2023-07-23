@@ -8,7 +8,7 @@ import { Request, Response } from '../../types/custom-types';
 import { FindUserByIdInput } from '../dtos/find-user-by-id.interface';
 import { UpdateUserInput } from '../dtos/update-user.input';
 import { UserDTO } from '../dtos/user.dto';
-import { UserPersistanceGateway } from './user-gateway.interface';
+import { UserPersistanceGateway } from './user-persistance-gateway.interface';
 
 @Injectable()
 export class UserPrismaGateway implements UserPersistanceGateway {

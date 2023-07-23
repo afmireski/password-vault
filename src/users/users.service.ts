@@ -4,7 +4,7 @@ import { DeleteUserInput } from './dtos/delete-user.input';
 import { FindUserByIdInput } from './dtos/find-user-by-id.interface';
 import { UpdateUserInput } from './dtos/update-user.input';
 import { UserDTO } from './dtos/user.dto';
-import { UserPersistanceGateway } from './gateways/user-gateway.interface';
+import { UserPersistanceGateway } from './gateways/user-persistance-gateway.interface';
 
 @Injectable()
 export class UsersService {

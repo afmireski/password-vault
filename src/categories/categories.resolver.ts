@@ -1,8 +1,8 @@
 import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CategoriesService } from './categories.service';
-import { CategoryDTO } from './dtos/category.dto';
+import { CategoryGraphQLDTO } from './dtos/category-graphql.dto';
 import { UsePipes, ValidationPipe } from '@nestjs/common';
-import { CreateCategoryInput } from './dtos/create-category.input';
+import { CreateCategoryGraphQLInput } from './dtos/create-category-graphql.input';
 import { GraphQLResolveInfo } from 'graphql';
 import { Request, Response, ResponseArray } from '../types/custom-types';
 import { PrismaSelect } from '@paljs/plugins';
@@ -16,15 +16,15 @@ import { Success } from '../dtos/success.dto';
 export class CategoriesResolver {
   constructor(private readonly categoriesService: CategoriesService) {}
 
-  @Mutation(() => CategoryDTO)
+  @Mutation(() => CategoryGraphQLDTO)
   @UsePipes(ValidationPipe)
   async CreateCategory(
-    @Args('input') input: CreateCategoryInput,
+    @Args('input') input: CreateCategoryGraphQLInput,
     @Info() info: GraphQLResolveInfo,
-  ): Response<CategoryDTO> {
+  ): Response<CategoryGraphQLDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: Request<CreateCategoryInput> = {
+    const request: Request<CreateCategoryGraphQLInput> = {
       input,
       select,
     };
@@ -32,12 +32,12 @@ export class CategoriesResolver {
     return this.categoriesService.createCategory(request);
   }
 
-  @Query(() => CategoryDTO)
+  @Query(() => CategoryGraphQLDTO)
   @UsePipes(ValidationPipe)
   async FindCategory(
     @Args() input: FindCategoryInput,
     @Info() info: GraphQLResolveInfo,
-  ): Response<CategoryDTO> {
+  ): Response<CategoryGraphQLDTO> {
     const select = new PrismaSelect(info).value;
 
     const request: Request<FindCategoryInput> = {
@@ -48,12 +48,12 @@ export class CategoriesResolver {
     return this.categoriesService.findCategory(request);
   }
 
-  @Query(() => [CategoryDTO])
+  @Query(() => [CategoryGraphQLDTO])
   @UsePipes(ValidationPipe)
   async FindManyCategories(
     @Args() input: FindManyCategoriesInput,
     @Info() info: GraphQLResolveInfo,
-  ): ResponseArray<CategoryDTO> {
+  ): ResponseArray<CategoryGraphQLDTO> {
     const select = new PrismaSelect(info).value;
 
     const request: Request<FindManyCategoriesInput> = {
@@ -64,12 +64,12 @@ export class CategoriesResolver {
     return this.categoriesService.findManyCategories(request);
   }
 
-  @Mutation(() => CategoryDTO)
+  @Mutation(() => CategoryGraphQLDTO)
   @UsePipes(ValidationPipe)
   async UpdateCategory(
     @Args('input') input: UpdateCategoryInput,
     @Info() info: GraphQLResolveInfo,
-  ): Response<CategoryDTO> {
+  ): Response<CategoryGraphQLDTO> {
     const select = new PrismaSelect(info).value;
 
     const request: Request<UpdateCategoryInput> = {
