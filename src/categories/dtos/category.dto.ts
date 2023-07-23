@@ -9,5 +9,5 @@ export interface CategoryDTO {
 
   created_at: Date;
 
-  owner: UserDTO;
+  owner?: UserDTO;
 }

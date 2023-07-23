@@ -8,7 +8,7 @@ import { Request, Response, ResponseArray } from '../types/custom-types';
 import { CreateCategoryGraphQLInput } from './dtos/create-category-graphql.input';
 import { CategoryGraphQLDTO } from './dtos/category-graphql.dto';
 import { FindCategoryGraphQLInput } from './dtos/find-category-graphql.input';
-import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
+import { FindManyCategoriesGraphQLInput } from './dtos/find-many-categories-graphql.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
 import { DeleteCategoryInput } from './dtos/delete-category.input';
 import { Success } from 'src/dtos/success.dto';
@@ -63,7 +63,7 @@ export class CategoriesService {
   }
 
   async findManyCategories(
-    request: Request<FindManyCategoriesInput>,
+    request: Request<FindManyCategoriesGraphQLInput>,
   ): ResponseArray<CategoryGraphQLDTO> {
     const {
       input: {

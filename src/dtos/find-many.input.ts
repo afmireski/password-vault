@@ -10,7 +10,7 @@ export interface FindManyInterface<T, U> {
   pagination?: PaginationInterface;
 }
 
-export function FindManyInput<T, U>(
+export function FindManyGraphQLInput<T, U>(
   t: Type<T>,
   u: Type<U>,
 ): Type<FindManyInterface<T, U>> {
