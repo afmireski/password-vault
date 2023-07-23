@@ -6,7 +6,7 @@ import { CreateCategoryGraphQLInput } from './dtos/create-category-graphql.input
 import { GraphQLResolveInfo } from 'graphql';
 import { Request, Response, ResponseArray } from '../types/custom-types';
 import { PrismaSelect } from '@paljs/plugins';
-import { FindCategoryInput } from './dtos/find-category.input';
+import { FindCategoryGraphQLInput } from './dtos/find-category-graphql.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
 import { DeleteCategoryInput } from './dtos/delete-category.input';
@@ -35,12 +35,12 @@ export class CategoriesResolver {
   @Query(() => CategoryGraphQLDTO)
   @UsePipes(ValidationPipe)
   async FindCategory(
-    @Args() input: FindCategoryInput,
+    @Args() input: FindCategoryGraphQLInput,
     @Info() info: GraphQLResolveInfo,
   ): Response<CategoryGraphQLDTO> {
     const select = new PrismaSelect(info).value;
 
-    const request: Request<FindCategoryInput> = {
+    const request: Request<FindCategoryGraphQLInput> = {
       input,
       select,
     };

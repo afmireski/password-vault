@@ -25,7 +25,7 @@ export class CategoryGraphQLDTO {
 
   @Field(() => UserGraphQLDTO, { nullable: false })
   @Transformer.Type(() => UserGraphQLDTO)
-  user?: UserGraphQLDTO;
+  owner?: UserGraphQLDTO;
 
   @Field(() => CategoryCount, { nullable: false })
   _count?: CategoryCount;

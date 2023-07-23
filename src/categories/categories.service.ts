@@ -7,7 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Request, Response, ResponseArray } from '../types/custom-types';
 import { CreateCategoryGraphQLInput } from './dtos/create-category-graphql.input';
 import { CategoryGraphQLDTO } from './dtos/category-graphql.dto';
-import { FindCategoryInput } from './dtos/find-category.input';
+import { FindCategoryGraphQLInput } from './dtos/find-category-graphql.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
 import { DeleteCategoryInput } from './dtos/delete-category.input';
@@ -41,7 +41,7 @@ export class CategoriesService {
   }
 
   async findCategory(
-    request: Request<FindCategoryInput>,
+    request: Request<FindCategoryGraphQLInput>,
   ): Response<CategoryGraphQLDTO> {
     const {
       input: { category_id },
