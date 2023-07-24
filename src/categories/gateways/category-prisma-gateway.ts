@@ -3,23 +3,21 @@ import {
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { Request, Response, ResponseArray } from '../types/custom-types';
-import { CreateCategoryGraphQLInput } from './dtos/create-category-graphql.input';
-import { CategoryGraphQLDTO } from './dtos/category-graphql.dto';
-import { FindCategoryGraphQLInput } from './dtos/find-category-graphql.input';
-import { FindManyCategoriesGraphQLInput } from './dtos/find-many-categories-graphql.input';
-import { UpdateCategoryGraphQLInput } from './dtos/update-category-graphql.input';
-import { DeleteCategoryGraphQLInput } from './dtos/delete-category-graphql.input';
-import { Success } from 'src/dtos/success.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { Request, Response, ResponseArray } from 'src/types/custom-types';
+import { CategoryDTO } from '../dtos/category.dto';
+import { CreateCategoryInput } from '../dtos/create-category.input';
+import { DeleteCategoryInput } from '../dtos/delete-category.input';
+import { FindCategoryByIdInput } from '../dtos/find-category-by-id.input';
+import { FindManyCategoriesPrisma } from '../dtos/find-many-categories-prisma';
+import { UpdateCategoryInput } from '../dtos/update-category.input';
+import { CategoryPersistanceGateway } from './category-persistance-gateway.interface';
 
 @Injectable()
-export class CategoriesService {
+export class CategoryPrismaGateway implements CategoryPersistanceGateway {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createCategory(
-    request: Request<CreateCategoryGraphQLInput>,
-  ): Response<CategoryGraphQLDTO> {
+  async create(request: Request<CreateCategoryInput>): Response<CategoryDTO> {
     const {
       input: { user_id, name },
       select,
@@ -40,9 +38,9 @@ export class CategoriesService {
     });
   }
 
-  async findCategory(
-    request: Request<FindCategoryGraphQLInput>,
-  ): Response<CategoryGraphQLDTO> {
+  async findById(
+    request: Request<FindCategoryByIdInput>,
+  ): Response<CategoryDTO> {
     const {
       input: { category_id },
       select,
@@ -62,9 +60,9 @@ export class CategoriesService {
     });
   }
 
-  async findManyCategories(
-    request: Request<FindManyCategoriesGraphQLInput>,
-  ): ResponseArray<CategoryGraphQLDTO> {
+  async findAllByUser(
+    request: Request<FindManyCategoriesPrisma>,
+  ): ResponseArray<CategoryDTO> {
     const {
       input: {
         user_id,
@@ -91,9 +89,7 @@ export class CategoriesService {
     );
   }
 
-  async updateCategory(
-    request: Request<UpdateCategoryGraphQLInput>,
-  ): Response<CategoryGraphQLDTO> {
+  async update(request: Request<UpdateCategoryInput>): Response<CategoryDTO> {
     const {
       input: { user_id, category_id, name },
       select,
@@ -134,22 +130,18 @@ export class CategoriesService {
     });
   }
 
-  async deleteCategory(
-    request: Request<DeleteCategoryGraphQLInput>,
-  ): Promise<Success> {
+  async delete(request: Request<DeleteCategoryInput>): Promise<void> {
     const {
       input: { category_id, user_id },
     } = request;
 
-    return Promise.resolve(
-      this.prisma.category.delete({
+    await this.prisma.category
+      .delete({
         where: {
           id: category_id,
           user_id: user_id,
         },
-      }),
-    )
-      .then(() => ({ success: true }))
+      })
       .catch(() => {
         throw new InternalServerErrorException(
           'Houve uma falha ao tentar apagar a categoria!',

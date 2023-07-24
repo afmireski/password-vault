@@ -9,7 +9,7 @@ import { PrismaSelect } from '@paljs/plugins';
 import { FindCategoryGraphQLInput } from './dtos/find-category-graphql.input';
 import { FindManyCategoriesGraphQLInput } from './dtos/find-many-categories-graphql.input';
 import { UpdateCategoryGraphQLInput } from './dtos/update-category-graphql.input';
-import { DeleteCategoryInput } from './dtos/delete-category.input';
+import { DeleteCategoryGraphQLInput } from './dtos/delete-category-graphql.input';
 import { Success } from '../dtos/success.dto';
 
 @Resolver()
@@ -83,9 +83,9 @@ export class CategoriesResolver {
   @Mutation(() => Success)
   @UsePipes(ValidationPipe)
   async DeleteCategory(
-    @Args('input') input: DeleteCategoryInput,
+    @Args('input') input: DeleteCategoryGraphQLInput,
   ): Promise<Success> {
-    const request: Request<DeleteCategoryInput> = {
+    const request: Request<DeleteCategoryGraphQLInput> = {
       input,
       select: undefined,
     };
