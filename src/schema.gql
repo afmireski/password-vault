@@ -30,21 +30,21 @@ type CategoryCount {
   passwords: Int!
 }
 
-type CategoryDTO {
+type CategoryGraphQLDTO {
   id: ID!
   user_id: String!
   name: String!
   created_at: DateTime!
   updated_at: DateTime!
   deleted_at: DateTime
-  user: UserGraphQLDTO!
+  owner: UserGraphQLDTO!
   _count: CategoryCount!
 }
 
 type Query {
   FindUser(user_id: String!): UserGraphQLDTO!
-  FindCategory(category_id: String!): CategoryDTO!
-  FindManyCategories(where: CategoryWhereInput, orderBy: CategoryOrderByWithRelationInput, pagination: Pagination = {}, user_id: String!): [CategoryDTO!]!
+  FindCategory(category_id: String!): CategoryGraphQLDTO!
+  FindManyCategories(where: CategoryWhereInput, orderBy: CategoryOrderByWithRelationInput, pagination: Pagination = {}, user_id: String!): [CategoryGraphQLDTO!]!
 }
 
 input CategoryWhereInput {
@@ -251,9 +251,9 @@ input Pagination {
 type Mutation {
   UpdateUser(input: UpdateUserGraphQLInput!): UserGraphQLDTO!
   DeleteUser(user_id: String!): Success!
-  CreateCategory(input: CreateCategoryInput!): CategoryDTO!
-  UpdateCategory(input: UpdateCategoryInput!): CategoryDTO!
-  DeleteCategory(input: DeleteCategoryInput!): Success!
+  CreateCategory(input: CreateCategoryGraphQLInput!): CategoryGraphQLDTO!
+  UpdateCategory(input: UpdateCategoryGraphQLInput!): CategoryGraphQLDTO!
+  DeleteCategory(input: DeleteCategoryGraphQLInput!): Success!
   SignUp(input: SignupGraphQLInput!): Success!
 }
 
@@ -263,18 +263,18 @@ input UpdateUserGraphQLInput {
   name: String
 }
 
-input CreateCategoryInput {
+input CreateCategoryGraphQLInput {
   user_id: String!
   name: String!
 }
 
-input UpdateCategoryInput {
+input UpdateCategoryGraphQLInput {
   category_id: String!
   user_id: String!
   name: String!
 }
 
-input DeleteCategoryInput {
+input DeleteCategoryGraphQLInput {
   category_id: String!
   user_id: String!
 }
