@@ -1,159 +1,45 @@
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { Inject, Injectable } from '@nestjs/common';
 import { Request, Response, ResponseArray } from '../types/custom-types';
-import { CreateCategoryGraphQLInput } from './dtos/create-category-graphql.input';
-import { CategoryGraphQLDTO } from './dtos/category-graphql.dto';
-import { FindCategoryGraphQLInput } from './dtos/find-category-graphql.input';
-import { FindManyCategoriesGraphQLInput } from './dtos/find-many-categories-graphql.input';
-import { UpdateCategoryGraphQLInput } from './dtos/update-category-graphql.input';
-import { DeleteCategoryGraphQLInput } from './dtos/delete-category-graphql.input';
-import { Success } from 'src/dtos/success.dto';
+import { CategoryDTO } from './dtos/category.dto';
+import { CreateCategoryInput } from './dtos/create-category.input';
+import { DeleteCategoryInput } from './dtos/delete-category.input';
+import { FindCategoryByIdInput } from './dtos/find-category-by-id.input';
+import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
+import { UpdateCategoryInput } from './dtos/update-category.input';
+import { CategoryPersistanceGateway } from './gateways/category-persistance-gateway.interface';
 
 @Injectable()
 export class CategoriesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @Inject('CategoryPersistanceGateway')
+    private readonly categoryGateway: CategoryPersistanceGateway,
+  ) {}
 
   async createCategory(
-    request: Request<CreateCategoryGraphQLInput>,
-  ): Response<CategoryGraphQLDTO> {
-    const {
-      input: { user_id, name },
-      select,
-    } = request;
-
-    return Promise.resolve(
-      this.prisma.category.create({
-        data: {
-          user_id,
-          name,
-        },
-        ...select,
-      }),
-    ).catch(() => {
-      throw new InternalServerErrorException(
-        'Houve uma falha ao criar a categoria',
-      );
-    });
+    request: Request<CreateCategoryInput>,
+  ): Response<CategoryDTO> {
+    return await this.categoryGateway.create(request);
   }
 
   async findCategory(
-    request: Request<FindCategoryGraphQLInput>,
-  ): Response<CategoryGraphQLDTO> {
-    const {
-      input: { category_id },
-      select,
-    } = request;
-
-    return Promise.resolve(
-      this.prisma.category.findFirstOrThrow({
-        where: {
-          id: {
-            equals: category_id,
-          },
-        },
-        ...select,
-      }),
-    ).catch(() => {
-      throw new InternalServerErrorException('Categoria não encontrada');
-    });
+    request: Request<FindCategoryByIdInput>,
+  ): Response<CategoryDTO> {
+    return await this.categoryGateway.findById(request);
   }
 
   async findManyCategories(
-    request: Request<FindManyCategoriesGraphQLInput>,
-  ): ResponseArray<CategoryGraphQLDTO> {
-    const {
-      input: {
-        user_id,
-        where,
-        orderBy,
-        pagination: { skip, take },
-      },
-      select,
-    } = request;
-
-    return Promise.resolve(
-      this.prisma.category.findMany({
-        where: {
-          ...where,
-          user_id: {
-            equals: user_id,
-          },
-        },
-        orderBy,
-        skip,
-        take,
-        ...select,
-      }),
-    );
+    request: Request<FindManyCategoriesInput>,
+  ): ResponseArray<CategoryDTO> {
+    return await this.categoryGateway.findAllByUser(request);
   }
 
   async updateCategory(
-    request: Request<UpdateCategoryGraphQLInput>,
-  ): Response<CategoryGraphQLDTO> {
-    const {
-      input: { user_id, category_id, name },
-      select,
-    } = request;
-
-    return Promise.resolve(
-      this.prisma.category.findFirst({
-        where: {
-          id: {
-            equals: category_id,
-          },
-          user_id: {
-            equals: user_id,
-          },
-          deleted_at: null,
-        },
-      }),
-    ).then((category) => {
-      if (!category) {
-        throw new BadRequestException('Categoria não encontrada');
-      }
-      return this.prisma.category
-        .update({
-          where: {
-            id: category_id,
-          },
-          data: {
-            name: name,
-            updated_at: new Date(),
-          },
-          ...select,
-        })
-        .catch(() => {
-          throw new InternalServerErrorException(
-            'Falha ao atualizar a categoria',
-          );
-        });
-    });
+    request: Request<UpdateCategoryInput>,
+  ): Response<CategoryDTO> {
+    return await this.categoryGateway.update(request);
   }
 
-  async deleteCategory(
-    request: Request<DeleteCategoryGraphQLInput>,
-  ): Promise<Success> {
-    const {
-      input: { category_id, user_id },
-    } = request;
-
-    return Promise.resolve(
-      this.prisma.category.delete({
-        where: {
-          id: category_id,
-          user_id: user_id,
-        },
-      }),
-    )
-      .then(() => ({ success: true }))
-      .catch(() => {
-        throw new InternalServerErrorException(
-          'Houve uma falha ao tentar apagar a categoria!',
-        );
-      });
+  async deleteCategory(request: Request<DeleteCategoryInput>): Promise<void> {
+    await this.categoryGateway.delete(request);
   }
 }
