@@ -12,4 +12,6 @@ export interface CategoryPersistanceGateway {
   findAllByUser(
     request: Request<FindManyCategoriesInput>,
   ): ResponseArray<CategoryDTO>;
+
+  update(request: Request<UpdateCategoryInput>)
 }

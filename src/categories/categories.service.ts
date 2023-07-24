@@ -9,7 +9,7 @@ import { CreateCategoryGraphQLInput } from './dtos/create-category-graphql.input
 import { CategoryGraphQLDTO } from './dtos/category-graphql.dto';
 import { FindCategoryGraphQLInput } from './dtos/find-category-graphql.input';
 import { FindManyCategoriesGraphQLInput } from './dtos/find-many-categories-graphql.input';
-import { UpdateCategoryInput } from './dtos/update-category.input';
+import { UpdateCategoryGraphQLInput } from './dtos/update-category-graphql.input';
 import { DeleteCategoryInput } from './dtos/delete-category.input';
 import { Success } from 'src/dtos/success.dto';
 
@@ -92,7 +92,7 @@ export class CategoriesService {
   }
 
   async updateCategory(
-    request: Request<UpdateCategoryInput>,
+    request: Request<UpdateCategoryGraphQLInput>,
   ): Response<CategoryGraphQLDTO> {
     const {
       input: { user_id, category_id, name },
