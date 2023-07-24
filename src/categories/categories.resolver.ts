@@ -90,6 +90,8 @@ export class CategoriesResolver {
       select: undefined,
     };
 
-    return this.categoriesService.deleteCategory(request);
+    await this.categoriesService.deleteCategory(request);
+
+    return { success: true };
   }
 }
