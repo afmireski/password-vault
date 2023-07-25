@@ -3,6 +3,6 @@ export interface HashGateway {
 }
 
 type Output = {
-  hashPassword: string;
+  hashedPassword: string;
   salt: string;
 };

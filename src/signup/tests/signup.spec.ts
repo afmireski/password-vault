@@ -21,7 +21,7 @@ describe('Deve testar a regra de SignUp', () => {
     const hashGateway: HashGateway = {
       hash() {
         return {
-          hashPassword:
+          hashedPassword:
             '$2b$10$gfRCB3jpofHjnOOnH/eUw.NsqCY8pzRxtfGh7bbkmv/xNd9SoSlGO',
           salt: '$2b$10$bwFu6.eNwW2U/gJUFbjOje',
         };
