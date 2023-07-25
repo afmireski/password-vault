@@ -13,7 +13,7 @@ export class SignupService {
     private readonly hashGateway: HashGateway,
   ) {}
 
-  async signup(request: SignUpInputInterface): Promise<void> {
+  async signUp(request: SignUpInputInterface): Promise<void> {
     const { email, name, password } = request;
 
     await this.signupGateway.register(

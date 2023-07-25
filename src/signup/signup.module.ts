@@ -15,7 +15,7 @@ import { HashBcryptGateway } from './gateways/hash-bcrypt-gateway';
       useExisting: SignupPrismaGateway,
     },
     {
-      provide: 'HashGateway',
+      provide: 'SignupHashGateway',
       useExisting: HashBcryptGateway,
     },
   ],

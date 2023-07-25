@@ -38,4 +38,8 @@ export class SignUpMemoryGateway implements SignupPersistanceGatewayInterface {
       throw new InternalServerErrorException('Falha ao criar o usuário');
     }
   }
+
+  findSignUpByEmail(email: string): any {
+    return this.users.find((value) => value.email === email);
+  }
 }

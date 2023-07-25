@@ -1,5 +1,6 @@
 import { SignUp } from '../entities/signup';
 import { HashGateway } from '../gateways/hash-gateway.interface';
+import { HashMockedGateway } from '../gateways/hash-mocked-gateway';
 
 describe('Teste da regra de SignUp', () => {
   it('Deve criar um objeto SignUp válido', () => {
@@ -9,15 +10,7 @@ describe('Teste da regra de SignUp', () => {
       password: '123456',
     };
 
-    const hashGateway: HashGateway = {
-      hash() {
-        return {
-          hashedPassword:
-            '$2b$10$gfRCB3jpofHjnOOnH/eUw.NsqCY8pzRxtfGh7bbkmv/xNd9SoSlGO',
-          salt: '$2b$10$bwFu6.eNwW2U/gJUFbjOje',
-        };
-      },
-    };
+    const hashGateway: HashGateway = new HashMockedGateway();
 
     const signUp = SignUp.create(
       hashGateway,
@@ -40,15 +33,7 @@ describe('Teste da regra de SignUp', () => {
       password: '123456',
     };
 
-    const hashGateway: HashGateway = {
-      hash() {
-        return {
-          hashedPassword:
-            '$2b$10$gfRCB3jpofHjnOOnH/eUw.NsqCY8pzRxtfGh7bbkmv/xNd9SoSlGO',
-          salt: '$2b$10$bwFu6.eNwW2U/gJUFbjOje',
-        };
-      },
-    };
+    const hashGateway: HashGateway = new HashMockedGateway();
 
     try {
       SignUp.create(hashGateway, input.email, input.name, input.password);
@@ -66,15 +51,7 @@ describe('Teste da regra de SignUp', () => {
       password: '123456',
     };
 
-    const hashGateway: HashGateway = {
-      hash() {
-        return {
-          hashedPassword:
-            '$2b$10$gfRCB3jpofHjnOOnH/eUw.NsqCY8pzRxtfGh7bbkmv/xNd9SoSlGO',
-          salt: '$2b$10$bwFu6.eNwW2U/gJUFbjOje',
-        };
-      },
-    };
+    const hashGateway: HashGateway = new HashMockedGateway();
 
     try {
       SignUp.create(hashGateway, input.email, input.name, input.password);
@@ -92,15 +69,7 @@ describe('Teste da regra de SignUp', () => {
       password: '123',
     };
 
-    const hashGateway: HashGateway = {
-      hash() {
-        return {
-          hashedPassword:
-            '$2b$10$gfRCB3jpofHjnOOnH/eUw.NsqCY8pzRxtfGh7bbkmv/xNd9SoSlGO',
-          salt: '$2b$10$bwFu6.eNwW2U/gJUFbjOje',
-        };
-      },
-    };
+    const hashGateway: HashGateway = new HashMockedGateway();
 
     try {
       SignUp.create(hashGateway, input.email, input.name, input.password);

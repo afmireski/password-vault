@@ -11,7 +11,7 @@ export class SignupResolver {
   @Mutation(() => Success)
   @UsePipes(ValidationPipe)
   async SignUp(@Args('input') input: SignUpGraphQLInput): Promise<Success> {
-    await this.signupService.signup(input);
+    await this.signupService.signUp(input);
 
     return { success: true };
   }
