@@ -1,3 +1,4 @@
+import * as Validator from 'class-validator';
 import { AccountPassword } from '../dtos/account-password.dto';
 import { HashGateway } from '../gateways/hash-gateway.interface';
 
@@ -18,6 +19,20 @@ export class SignUp {
     name: string,
     password: string,
   ): SignUp {
+    const isEmailValid = Validator.isEmail(email);
+
+    const isNameValid = Validator.length(name, 3, 100);
+
+    const isPasswordValid = password.length >= 6;
+
+    if (!isEmailValid) {
+      throw new Error('O endereço de e-mail não é válido');
+    } else if (!isNameValid) {
+      throw new Error('O nome deve ter entre 3 e 100 caracteres');
+    } else if (!isPasswordValid) {
+      throw new Error('A senha deve possuir no mínimo 6 caracteres');
+    }
+
     return new SignUp(
       email,
       name,
