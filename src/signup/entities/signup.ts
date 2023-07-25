@@ -1,6 +1,6 @@
-import { AccountPasswordDTO } from '../dtos/account-passoword.dto';
+import { AccountPasswordDTO } from '../dtos/account-password.dto';
 
-export class Signup {
+export class SignUp {
   constructor(email: string, name: string, password: string) {
     this.email = email;
     this.name = name;

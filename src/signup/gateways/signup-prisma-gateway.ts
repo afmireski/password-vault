@@ -4,14 +4,14 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Signup } from '../entities/signup';
+import { SignUp } from '../entities/signup';
 import { SignupPersistanceGatewayInterface } from './signup-gateway.interface';
 
 @Injectable()
 export class SignupPrismaGateway implements SignupPersistanceGatewayInterface {
   constructor(private readonly prisma: PrismaService) {}
 
-  async register(input: Signup): Promise<void> {
+  async register(input: SignUp): Promise<void> {
     const { email, name, password } = input;
 
     const emailExists = await this.prisma.user.findFirst({
