@@ -1,5 +1,5 @@
-import { SignupDTO } from '../dtos/signup.dto';
+import { Signup } from '../entities/signup';
 
 export interface SignupPersistanceGatewayInterface {
-  register(input: SignupDTO): Promise<void>;
+  register(input: Signup): Promise<void>;
 }

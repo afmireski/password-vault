@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { SignupInputInterface } from './dtos/signup-input.interface';
-import { SignupDTO } from './dtos/signup.dto';
+import { Signup } from './entities/signup';
 import { SignupPersistanceGatewayInterface } from './gateways/signup-gateway.interface';
 
 @Injectable()
@@ -13,6 +13,6 @@ export class SignupService {
   async signup(request: SignupInputInterface): Promise<void> {
     const { email, name, password } = request;
 
-    await this.signupGateway.register(new SignupDTO(email, name, password));
+    await this.signupGateway.register(new Signup(email, name, password));
   }
 }
