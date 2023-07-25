@@ -28,7 +28,7 @@ describe('Deve testar a regra de SignUp', () => {
       },
     };
 
-    const signUp = new SignUp(
+    const signUp = SignUp.create(
       hashGateway,
       input.email,
       input.name,

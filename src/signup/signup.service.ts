@@ -17,7 +17,7 @@ export class SignupService {
     const { email, name, password } = request;
 
     await this.signupGateway.register(
-      new SignUp(this.hashGateway, email, name, password),
+      SignUp.create(this.hashGateway, email, name, password),
     );
   }
 }
