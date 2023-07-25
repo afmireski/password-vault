@@ -1,9 +1,11 @@
-import * as bcrypt from 'bcrypt';
+import { HashGateway } from '../gateways/hash-gateway.interface';
 
 export class AccountPasswordDTO {
-  constructor(value: string, salt: number) {
-    this.salt = bcrypt.genSaltSync(salt);
-    this.value = bcrypt.hashSync(value, salt);
+  constructor(hashGateway: HashGateway, value: string, salt: number) {
+    const { hashPassword, salt: generatedSalt } = hashGateway.hash(value, salt);
+
+    this.salt = generatedSalt;
+    this.value = hashPassword;
   }
 
   private salt: string;
