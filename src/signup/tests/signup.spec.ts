@@ -47,7 +47,7 @@ describe('Teste da regra de SignUp', () => {
   it('Deve falhar pois o nome é inválido', () => {
     const input = {
       email: 'test@email.com',
-      name: 'T',
+      name: '',
       password: '123456',
     };
 
@@ -66,7 +66,7 @@ describe('Teste da regra de SignUp', () => {
     const input = {
       email: 'test@email.com',
       name: 'Teste User',
-      password: '123',
+      password: '',
     };
 
     const hashGateway: HashGateway = new HashMockedGateway();
