@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { HashGateway } from 'src/gateways/hash-gateway.interface';
 import { Request } from 'src/types/custom-types';
 import { ChangeAccountPasswordInput } from './dtos/change-account-password.input';
 import { ChangeAccountPassword } from './entities/change-account-password';
@@ -9,6 +10,8 @@ export class ChangeAccountPasswordService {
   constructor(
     @Inject('ChangeAccountPasswordPersistanceGateway')
     private readonly persistanceGateway: ChangeAccountPasswordPersistanceGateway,
+    @Inject('HashGateway')
+    private readonly hashGateway: HashGateway,
   ) {}
 
   async changeAccountPassword(
@@ -18,7 +21,12 @@ export class ChangeAccountPasswordService {
       input: { userId, currentPassword, newPassword },
     } = request;
     await this.persistanceGateway.changePassword(
-      new ChangeAccountPassword(userId, currentPassword, newPassword),
+      ChangeAccountPassword.create(
+        this.hashGateway,
+        userId,
+        currentPassword,
+        newPassword,
+      ),
     );
   }
 }

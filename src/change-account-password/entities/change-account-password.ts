@@ -9,7 +9,7 @@ export class ChangeAccountPassword {
 
   newPassword: AccountPassword;
 
-  constructor(
+  private constructor(
     userId: string,
     currentPassword: string,
     newPassword: AccountPassword,
