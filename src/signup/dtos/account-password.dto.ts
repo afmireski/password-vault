@@ -1,4 +1,4 @@
-import { HashGateway } from '../gateways/hash-gateway.interface';
+import { HashGateway } from '../../gateways/hash-gateway.interface';
 
 export class AccountPassword {
   private constructor(value: string, salt: string) {
@@ -14,6 +14,10 @@ export class AccountPassword {
     value: string,
     salt: number,
   ): AccountPassword {
+    if (value.length < 6) {
+      throw new Error('A senha deve ter no mínimo 6 caracteres');
+    }
+
     const { hashedPassword, salt: generatedSalt } = hashGateway.hash(
       value,
       salt,

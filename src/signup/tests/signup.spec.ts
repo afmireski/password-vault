@@ -1,6 +1,6 @@
+import { HashGateway } from 'src/gateways/hash-gateway.interface';
+import { HashMockedGateway } from 'src/gateways/hash-mocked-gateway';
 import { SignUp } from '../entities/signup';
-import { HashGateway } from '../gateways/hash-gateway.interface';
-import { HashMockedGateway } from '../gateways/hash-mocked-gateway';
 
 describe('Teste da regra de SignUp', () => {
   it('Deve criar um objeto SignUp válido', () => {

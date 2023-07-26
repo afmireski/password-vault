@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { HashGateway } from 'src/gateways/hash-gateway.interface';
 import { SignUpInputInterface } from './dtos/signup-input.interface';
 import { SignUp } from './entities/signup';
-import { HashGateway } from './gateways/hash-gateway.interface';
 import { SignupPersistanceGatewayInterface } from './gateways/signup-persistance-gateway.interface';
 
 @Injectable()

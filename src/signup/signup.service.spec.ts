@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { HashMockedGateway } from 'src/gateways/hash-mocked-gateway';
 import { SignUpInputInterface } from './dtos/signup-input.interface';
-import { HashMockedGateway } from './gateways/hash-mocked-gateway';
 import { SignUpMemoryGateway } from './gateways/signup-memory-gateway';
 import { SignupService } from './signup.service';
 
