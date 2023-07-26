@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { ChangeAccountPasswordPersistanceGateway } from './gateways/change-account-passwotd-persistance-gateway.interface';
 
 @Injectable()
 export class ChangeAccountPasswordService {
@@ -6,4 +7,8 @@ export class ChangeAccountPasswordService {
     @Inject('ChangeAccountPasswordPersistanceGateway')
     private readonly persistanceGateway: ChangeAccountPasswordPersistanceGateway,
   ) {}
+
+  async changeAccountPassword(input: ChangeAccountPasswordInput): Promise<void> {
+    return;
+  }
 }
