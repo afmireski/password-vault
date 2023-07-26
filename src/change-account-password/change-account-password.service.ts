@@ -3,7 +3,7 @@ import { HashGateway } from 'src/gateways/hash-gateway.interface';
 import { Request } from 'src/types/custom-types';
 import { ChangeAccountPasswordInput } from './dtos/change-account-password.input';
 import { ChangeAccountPassword } from './entities/change-account-password';
-import { ChangeAccountPasswordPersistanceGateway } from './gateways/change-account-passwotd-persistance-gateway.interface';
+import { ChangeAccountPasswordPersistanceGateway } from './gateways/change-account-password-persistance-gateway.interface';
 
 @Injectable()
 export class ChangeAccountPasswordService {
