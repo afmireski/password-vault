@@ -5,24 +5,24 @@ import { HashGateway } from '../../gateways/hash-gateway.interface';
 export class ChangeAccountPassword {
   userId: string;
 
-  oldPassword: string;
+  currentPassword: string;
 
   newPassword: AccountPassword;
 
   constructor(
     userId: string,
-    oldPassword: string,
+    currentPassword: string,
     newPassword: AccountPassword,
   ) {
     this.userId = userId;
-    this.oldPassword = oldPassword;
+    this.currentPassword = currentPassword;
     this.newPassword = newPassword;
   }
 
   static create(
     hashGateway: HashGateway,
     userId: string,
-    oldPassword: string,
+    currentPassword: string,
     newPassword: string,
   ): ChangeAccountPassword {
     const isUserIdValid =
@@ -32,16 +32,15 @@ export class ChangeAccountPassword {
       throw new Error('O id do usuário não é válido');
     }
 
-    const isOldPasswordValid =
-      validator.minLength(oldPassword, 6) && validator.isNotEmpty(oldPassword);
+    const isOldPasswordValid = currentPassword.length >= 6;
 
     if (!isOldPasswordValid) {
-      throw new Error('A senha antiga não está num formato válido');
+      throw new Error('A senha atual não está num formato válido');
     }
 
     return new ChangeAccountPassword(
       userId,
-      oldPassword,
+      currentPassword,
       AccountPassword.create(hashGateway, newPassword, 10),
     );
   }
