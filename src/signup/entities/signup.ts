@@ -19,9 +19,11 @@ export class SignUp {
     name: string,
     password: string,
   ): SignUp {
-    const isEmailValid = Validator.isEmail(email);
+    const isEmailValid =
+      Validator.isEmail(email) && Validator.isNotEmpty(email);
 
-    const isNameValid = Validator.length(name, 3, 100);
+    const isNameValid =
+      Validator.length(name, 3, 100) && Validator.isNotEmpty(name);
 
     const isPasswordValid = password.length >= 6;
 
