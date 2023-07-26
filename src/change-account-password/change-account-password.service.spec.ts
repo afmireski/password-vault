@@ -17,4 +17,14 @@ describe('ChangeAccountPasswordService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('Deve testar changeAccountPassword', () => {
+    it('should be defined', () => {
+      expect(service.changeAccountPassword).toBeDefined();
+    });
+
+    it('Deve alterar a senha da conta', async () => {
+      
+    });
+  });
 });
