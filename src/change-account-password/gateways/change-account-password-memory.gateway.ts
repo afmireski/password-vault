@@ -7,7 +7,7 @@ import * as bcrypt from 'bcrypt';
 export class ChangeAccountPasswordMemoryGateway
   implements ChangeAccountPasswordPersistanceGateway
 {
-  accounts: Account[] = [
+  private accounts: Account[] = [
     {
       id: '70cd1369-e7f1-4167-a267-5639912ecc2d',
       password: '$2b$10$gfRCB3jpofHjnOOnH/eUw.NsqCY8pzRxtfGh7bbkmv/xNd9SoSlGO',
@@ -30,6 +30,10 @@ export class ChangeAccountPasswordMemoryGateway
     }
 
     this.accounts[i].password = newPassword.getValue;
+  }
+
+  findAccount(userId: string): Account {
+    return this.accounts.find((element) => element.id === userId);
   }
 }
 

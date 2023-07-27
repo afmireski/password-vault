@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { HashGateway } from 'src/gateways/hash-gateway.interface';
-import { Request } from 'src/types/custom-types';
+import { HashGateway } from '../gateways/hash-gateway.interface';
+import { Request } from '../types/custom-types';
 import { ChangeAccountPasswordInput } from './dtos/change-account-password.input';
 import { ChangeAccountPassword } from './entities/change-account-password';
 import { ChangeAccountPasswordPersistanceGateway } from './gateways/change-account-password-persistance-gateway.interface';

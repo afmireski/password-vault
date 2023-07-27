@@ -38,6 +38,9 @@ export class ChangeAccountPasswordPrismaGateway
       data: {
         password: newPassword.getValue,
       },
+      select: {
+        id: true,
+      },
     });
   }
 }
