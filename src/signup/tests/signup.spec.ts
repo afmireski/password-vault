@@ -1,5 +1,5 @@
-import { HashGateway } from '../../gateways/hash-gateway.interface';
-import { HashMockedGateway } from '../../gateways/hash-mocked-gateway';
+import { HashGateway } from '../../gateways/hash.gateway';
+import { HashMockedAdapter } from '../../adapters/hash-mocked.adapter.';
 import { SignUp } from '../entities/signup';
 
 describe('Teste da regra de SignUp', () => {
@@ -10,7 +10,7 @@ describe('Teste da regra de SignUp', () => {
       password: '123456',
     };
 
-    const hashGateway: HashGateway = new HashMockedGateway();
+    const hashGateway: HashGateway = new HashMockedAdapter();
 
     const signUp = SignUp.create(
       hashGateway,
@@ -33,7 +33,7 @@ describe('Teste da regra de SignUp', () => {
       password: '123456',
     };
 
-    const hashGateway: HashGateway = new HashMockedGateway();
+    const hashGateway: HashGateway = new HashMockedAdapter();
 
     try {
       SignUp.create(hashGateway, input.email, input.name, input.password);
@@ -51,7 +51,7 @@ describe('Teste da regra de SignUp', () => {
       password: '123456',
     };
 
-    const hashGateway: HashGateway = new HashMockedGateway();
+    const hashGateway: HashGateway = new HashMockedAdapter();
 
     try {
       SignUp.create(hashGateway, input.email, input.name, input.password);
@@ -69,7 +69,7 @@ describe('Teste da regra de SignUp', () => {
       password: '',
     };
 
-    const hashGateway: HashGateway = new HashMockedGateway();
+    const hashGateway: HashGateway = new HashMockedAdapter();
 
     try {
       SignUp.create(hashGateway, input.email, input.name, input.password);

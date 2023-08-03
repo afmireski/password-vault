@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { HashGateway } from '../gateways/hash-gateway.interface';
+import { HashGateway } from '../gateways/hash.gateway';
 import { Request } from '../types/custom-types';
 import { ChangeAccountPasswordInput } from './dtos/change-account-password.input';
 import { ChangeAccountPassword } from './entities/change-account-password';

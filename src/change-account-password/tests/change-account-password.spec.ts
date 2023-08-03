@@ -1,4 +1,4 @@
-import { HashGateway } from '../../gateways/hash-gateway.interface';
+import { HashGateway } from '../../gateways/hash.gateway';
 import { ChangeAccountPassword } from '../entities/change-account-password';
 
 describe('Deve testar a regra de Alterar Senha da Conta', () => {

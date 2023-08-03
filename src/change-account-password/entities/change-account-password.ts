@@ -1,6 +1,6 @@
 import { AccountPassword } from '../../signup/dtos/account-password.dto';
 import * as validator from 'class-validator';
-import { HashGateway } from '../../gateways/hash-gateway.interface';
+import { HashGateway } from '../../gateways/hash.gateway';
 
 export class ChangeAccountPassword {
   userId: string;

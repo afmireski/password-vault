@@ -1,4 +1,4 @@
-import { HashGateway } from '../../gateways/hash-gateway.interface';
+import { HashGateway } from '../../gateways/hash.gateway';
 
 export class AccountPassword {
   private constructor(value: string, salt: string) {

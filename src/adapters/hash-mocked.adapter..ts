@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { HashGateway } from './hash-gateway.interface';
+import { HashGateway } from '../gateways/hash.gateway';
 
 @Injectable()
-export class HashMockedGateway implements HashGateway {
+export class HashMockedAdapter implements HashGateway {
   hash(
     password: string,
     salt: number,

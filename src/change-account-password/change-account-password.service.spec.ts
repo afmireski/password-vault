@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HashMockedGateway } from '../gateways/hash-mocked-gateway';
+import { HashMockedAdapter } from '../adapters/hash-mocked.adapter.';
 import { ChangeAccountPasswordMemoryAdapter } from './adapters/change-account-password-memory.adapter';
 import { ChangeAccountPasswordService } from './change-account-password.service';
 import { ChangeAccountPasswordInput } from './dtos/change-account-password.input';
@@ -13,14 +13,14 @@ describe('ChangeAccountPasswordService', () => {
       providers: [
         ChangeAccountPasswordService,
         ChangeAccountPasswordMemoryAdapter,
-        HashMockedGateway,
+        HashMockedAdapter,
         {
           provide: 'ChangeAccountPasswordPersistanceGateway',
           useExisting: ChangeAccountPasswordMemoryAdapter,
         },
         {
           provide: 'HashGateway',
-          useExisting: HashMockedGateway,
+          useExisting: HashMockedAdapter,
         },
       ],
     }).compile();
