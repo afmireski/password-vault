@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CategoriesResolver } from './categories.resolver';
-import { CategoryPrismaGateway } from './gateways/category-prisma-gateway';
+import { CategoryPrismaAdapter } from './gateways/category-prisma-gateway';
 
 @Module({
   providers: [
     CategoriesResolver,
     CategoriesService,
-    CategoryPrismaGateway,
+    CategoryPrismaAdapter,
     {
       provide: 'CategoryPersistanceGateway',
-      useExisting: CategoryPrismaGateway,
+      useExisting: CategoryPrismaAdapter,
     },
   ],
 })

@@ -6,7 +6,7 @@ import { DeleteCategoryInput } from './dtos/delete-category.input';
 import { FindCategoryByIdInput } from './dtos/find-category-by-id.input';
 import { FindManyCategoriesInput } from './dtos/find-many-categories.input';
 import { UpdateCategoryInput } from './dtos/update-category.input';
-import { CategoryPersistanceGateway } from './gateways/category-persistance-gateway.interface';
+import { CategoryPersistanceGateway } from './gateways/category-persistance.gateway';
 
 @Injectable()
 export class CategoriesService {
