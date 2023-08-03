@@ -1,9 +1,9 @@
 import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { HashMockedGateway } from 'src/gateways/hash-mocked-gateway';
 import { SignUpInputInterface } from './dtos/signup-input.interface';
 import { SignUpMemoryAdapter } from './adapters/signup-memory.adapter';
 import { SignupService } from './signup.service';
+import { HashMockedAdapter } from '../adapters/hash-mocked.adapter.';
 
 describe('SignupService', () => {
   let service: SignupService;
@@ -14,14 +14,14 @@ describe('SignupService', () => {
       providers: [
         SignupService,
         SignUpMemoryAdapter,
-        HashMockedGateway,
+        HashMockedAdapter,
         {
           provide: 'SignupPersistenceGateway',
           useExisting: SignUpMemoryAdapter,
         },
         {
           provide: 'SignupHashGateway',
-          useExisting: HashMockedGateway,
+          useExisting: HashMockedAdapter,
         },
       ],
     }).compile();
