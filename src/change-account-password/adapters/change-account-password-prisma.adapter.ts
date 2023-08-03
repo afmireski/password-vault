@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ChangeAccountPassword } from '../entities/change-account-password';
-import { ChangeAccountPasswordPersistanceGateway } from './change-account-password-persistance-gateway.interface';
+import { ChangeAccountPasswordPersistanceGateway } from '../gateways/change-account-password-persistance.gateway';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class ChangeAccountPasswordPrismaGateway
+export class ChangeAccountPasswordPrismaAdapter
   implements ChangeAccountPasswordPersistanceGateway
 {
   constructor(private readonly prisma: PrismaService) {}

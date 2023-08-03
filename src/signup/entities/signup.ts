@@ -1,6 +1,6 @@
 import * as Validator from 'class-validator';
+import { HashGateway } from 'src/gateways/hash-gateway.interface';
 import { AccountPassword } from '../dtos/account-password.dto';
-import { HashGateway } from '../gateways/hash-gateway.interface';
 
 export class SignUp {
   private constructor(email: string, name: string, password: AccountPassword) {

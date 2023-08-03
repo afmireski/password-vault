@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ChangeAccountPassword } from '../entities/change-account-password';
-import { ChangeAccountPasswordPersistanceGateway } from './change-account-password-persistance-gateway.interface';
 import * as bcrypt from 'bcrypt';
+import { ChangeAccountPasswordPersistanceGateway } from '../gateways/change-account-password-persistance.gateway';
 
 @Injectable()
-export class ChangeAccountPasswordMemoryGateway
+export class ChangeAccountPasswordMemoryAdapter
   implements ChangeAccountPasswordPersistanceGateway
 {
   private accounts: Account[] = [

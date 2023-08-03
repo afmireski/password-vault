@@ -1,22 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HashMockedGateway } from '../gateways/hash-mocked-gateway';
+import { ChangeAccountPasswordMemoryAdapter } from './adapters/change-account-password-memory.adapter';
 import { ChangeAccountPasswordService } from './change-account-password.service';
 import { ChangeAccountPasswordInput } from './dtos/change-account-password.input';
-import { ChangeAccountPasswordMemoryGateway } from './gateways/change-account-password-memory.gateway';
 
 describe('ChangeAccountPasswordService', () => {
   let service: ChangeAccountPasswordService;
-  let gateway: ChangeAccountPasswordMemoryGateway;
+  let gateway: ChangeAccountPasswordMemoryAdapter;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ChangeAccountPasswordService,
-        ChangeAccountPasswordMemoryGateway,
+        ChangeAccountPasswordMemoryAdapter,
         HashMockedGateway,
         {
           provide: 'ChangeAccountPasswordPersistanceGateway',
-          useExisting: ChangeAccountPasswordMemoryGateway,
+          useExisting: ChangeAccountPasswordMemoryAdapter,
         },
         {
           provide: 'HashGateway',
@@ -29,8 +29,8 @@ describe('ChangeAccountPasswordService', () => {
       ChangeAccountPasswordService,
     );
 
-    gateway = module.get<ChangeAccountPasswordMemoryGateway>(
-      ChangeAccountPasswordMemoryGateway,
+    gateway = module.get<ChangeAccountPasswordMemoryAdapter>(
+      ChangeAccountPasswordMemoryAdapter,
     );
   });
 
