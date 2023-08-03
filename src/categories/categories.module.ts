@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CategoriesResolver } from './categories.resolver';
-import { CategoryPrismaAdapter } from './gateways/category-prisma-gateway';
+import { CategoryPrismaAdapter } from './adapters/category-prisma.adapter';
 
 @Module({
   providers: [

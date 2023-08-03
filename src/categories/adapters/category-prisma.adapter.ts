@@ -11,7 +11,7 @@ import { DeleteCategoryInput } from '../dtos/delete-category.input';
 import { FindCategoryByIdInput } from '../dtos/find-category-by-id.input';
 import { FindManyCategoriesPrisma } from '../dtos/find-many-categories-prisma';
 import { UpdateCategoryInput } from '../dtos/update-category.input';
-import { CategoryPersistanceGateway } from './category-persistance.gateway';
+import { CategoryPersistanceGateway } from '../gateways/category-persistance.gateway';
 
 @Injectable()
 export class CategoryPrismaAdapter implements CategoryPersistanceGateway {
