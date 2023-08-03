@@ -1,5 +1,5 @@
 import { SignUp } from '../entities/signup';
 
-export interface SignupPersistanceGatewayInterface {
+export interface SignUpPersistanceGateway {
   register(input: SignUp): Promise<void>;
 }

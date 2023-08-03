@@ -1,22 +1,22 @@
 import { Module } from '@nestjs/common';
 import { SignupService } from './signup.service';
 import { SignupResolver } from './signup.resolver';
-import { SignupPrismaGateway } from './gateways/signup-prisma-gateway';
-import { HashBcryptGateway } from '../gateways/hash-bcrypt-gateway';
+import { SignupPrismaAdapter } from './adapters/signup-prisma.adapter';
+import { HashBcryptAdapter } from '../adapters/hash-bcrypt.adapter';
 
 @Module({
   providers: [
     SignupResolver,
     SignupService,
-    SignupPrismaGateway,
-    HashBcryptGateway,
+    SignupPrismaAdapter,
+    HashBcryptAdapter,
     {
       provide: 'SignupPersistenceGateway',
-      useExisting: SignupPrismaGateway,
+      useExisting: SignupPrismaAdapter,
     },
     {
       provide: 'SignupHashGateway',
-      useExisting: HashBcryptGateway,
+      useExisting: HashBcryptAdapter,
     },
   ],
 })

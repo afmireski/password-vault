@@ -4,10 +4,10 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { SignUp } from '../entities/signup';
-import { SignupPersistanceGatewayInterface } from './signup-persistance-gateway.interface';
+import { SignUpPersistanceGateway } from '../gateways/signup-persistance.gateway';
 
 @Injectable()
-export class SignUpMemoryGateway implements SignupPersistanceGatewayInterface {
+export class SignUpMemoryAdapter implements SignUpPersistanceGateway {
   users: { name: string; email: string; password: string }[] = [
     {
       email: 'mock01@email.com',

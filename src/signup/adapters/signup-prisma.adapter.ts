@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SignUp } from '../entities/signup';
-import { SignupPersistanceGatewayInterface } from './signup-persistance-gateway.interface';
+import { SignUpPersistanceGateway } from '../gateways/signup-persistance.gateway';
 
 @Injectable()
-export class SignupPrismaGateway implements SignupPersistanceGatewayInterface {
+export class SignupPrismaAdapter implements SignUpPersistanceGateway {
   constructor(private readonly prisma: PrismaService) {}
 
   async register(input: SignUp): Promise<void> {

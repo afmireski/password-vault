@@ -8,10 +8,10 @@ import { Request, Response } from '../../types/custom-types';
 import { FindUserByIdInput } from '../dtos/find-user-by-id.interface';
 import { UpdateUserInput } from '../dtos/update-user.input';
 import { UserDTO } from '../dtos/user.dto';
-import { UserPersistanceGateway } from './user-persistance-gateway.interface';
+import { UserPersistanceGateway } from '../gateways/user-persistance.gateway';
 
 @Injectable()
-export class UserPrismaGateway implements UserPersistanceGateway {
+export class UserPrismaAdapter implements UserPersistanceGateway {
   constructor(private readonly prisma: PrismaService) {}
 
   async findUserById(request: Request<FindUserByIdInput>): Response<UserDTO> {

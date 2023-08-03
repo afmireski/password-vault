@@ -2,21 +2,21 @@ import { Module } from '@nestjs/common';
 import { ChangeAccountPasswordService } from './change-account-password.service';
 import { ChangeAccountPasswordResolver } from './change-account-password.resolver';
 import { ChangeAccountPasswordPrismaAdapter } from './adapters/change-account-password-prisma.adapter';
-import { HashBcryptGateway } from 'src/gateways/hash-bcrypt-gateway';
+import { HashBcryptAdapter } from '../adapters/hash-bcrypt.adapter';
 
 @Module({
   providers: [
     ChangeAccountPasswordResolver,
     ChangeAccountPasswordService,
     ChangeAccountPasswordPrismaAdapter,
-    HashBcryptGateway,
+    HashBcryptAdapter,
     {
       provide: 'ChangeAccountPasswordPersistanceGateway',
       useExisting: ChangeAccountPasswordPrismaAdapter,
     },
     {
       provide: 'HashGateway',
-      useExisting: HashBcryptGateway,
+      useExisting: HashBcryptAdapter,
     },
   ],
 })

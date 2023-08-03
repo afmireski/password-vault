@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserPrismaGateway } from './gateways/user-prisma-gateway';
+import { UserPrismaAdapter } from './adapters/user-prisma.adapter';
 import { UsersResolver } from './users.resolver';
 import { UsersService } from './users.service';
 
@@ -7,10 +7,10 @@ import { UsersService } from './users.service';
   providers: [
     UsersResolver,
     UsersService,
-    UserPrismaGateway,
+    UserPrismaAdapter,
     {
       provide: 'UserPersistenceGateway',
-      useExisting: UserPrismaGateway,
+      useExisting: UserPrismaAdapter,
     },
   ],
 })

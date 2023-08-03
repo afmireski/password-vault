@@ -254,7 +254,8 @@ type Mutation {
   CreateCategory(input: CreateCategoryGraphQLInput!): CategoryGraphQLDTO!
   UpdateCategory(input: UpdateCategoryGraphQLInput!): CategoryGraphQLDTO!
   DeleteCategory(input: DeleteCategoryGraphQLInput!): Success!
-  SignUp(input: SignupGraphQLInput!): Success!
+  SignUp(input: SignUpGraphQLInput!): Success!
+  ChangeAccountPassword(input: ChangeAccountPasswordGraphQLInput!): Success!
 }
 
 input UpdateUserGraphQLInput {
@@ -279,8 +280,14 @@ input DeleteCategoryGraphQLInput {
   user_id: String!
 }
 
-input SignupGraphQLInput {
+input SignUpGraphQLInput {
   email: String!
   name: String!
   password: String!
+}
+
+input ChangeAccountPasswordGraphQLInput {
+  userId: String!
+  currentPassword: String!
+  newPassword: String!
 }

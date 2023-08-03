@@ -1,6 +1,7 @@
-import { Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import { ChangeAccountPasswordInput } from './change-account-password.input';
 
+@InputType()
 export class ChangeAccountPasswordGraphQLInput
   implements ChangeAccountPasswordInput
 {

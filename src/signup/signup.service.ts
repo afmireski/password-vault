@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { HashGateway } from 'src/gateways/hash-gateway.interface';
+import { HashGateway } from '../gateways/hash.gateway';
 import { SignUpInputInterface } from './dtos/signup-input.interface';
 import { SignUp } from './entities/signup';
-import { SignupPersistanceGatewayInterface } from './gateways/signup-persistance-gateway.interface';
+import { SignUpPersistanceGateway } from './gateways/signup-persistance.gateway';
 
 @Injectable()
 export class SignupService {
   constructor(
     @Inject('SignupPersistenceGateway')
-    private readonly signupGateway: SignupPersistanceGatewayInterface,
+    private readonly signupGateway: SignUpPersistanceGateway,
     @Inject('SignupHashGateway')
     private readonly hashGateway: HashGateway,
   ) {}

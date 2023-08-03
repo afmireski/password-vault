@@ -1,7 +1,7 @@
 import { UsePipes, ValidationPipe } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { Success } from 'src/dtos/success.dto';
-import { Response } from 'src/types/custom-types';
+import { Success } from '../dtos/success.dto';
+import { Response } from '../types/custom-types';
 import { ChangeAccountPasswordService } from './change-account-password.service';
 import { ChangeAccountPasswordGraphQLInput } from './dtos/change-account-password-graphql.input';
 

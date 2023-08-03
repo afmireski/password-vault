@@ -2,22 +2,22 @@ import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { HashMockedGateway } from 'src/gateways/hash-mocked-gateway';
 import { SignUpInputInterface } from './dtos/signup-input.interface';
-import { SignUpMemoryGateway } from './gateways/signup-memory-gateway';
+import { SignUpMemoryAdapter } from './adapters/signup-memory.adapter';
 import { SignupService } from './signup.service';
 
 describe('SignupService', () => {
   let service: SignupService;
-  let gateway: SignUpMemoryGateway;
+  let gateway: SignUpMemoryAdapter;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SignupService,
-        SignUpMemoryGateway,
+        SignUpMemoryAdapter,
         HashMockedGateway,
         {
           provide: 'SignupPersistenceGateway',
-          useExisting: SignUpMemoryGateway,
+          useExisting: SignUpMemoryAdapter,
         },
         {
           provide: 'SignupHashGateway',
@@ -27,7 +27,7 @@ describe('SignupService', () => {
     }).compile();
 
     service = module.get<SignupService>(SignupService);
-    gateway = module.get<SignUpMemoryGateway>(SignUpMemoryGateway);
+    gateway = module.get<SignUpMemoryAdapter>(SignUpMemoryAdapter);
   });
 
   it('should be defined', () => {

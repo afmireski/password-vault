@@ -1,4 +1,4 @@
-import { Request, Response } from 'src/types/custom-types';
+import { Request, Response } from '../../types/custom-types';
 import { FindUserByIdInput } from '../dtos/find-user-by-id.interface';
 import { UpdateUserInput } from '../dtos/update-user.input';
 import { UserDTO } from '../dtos/user.dto';
